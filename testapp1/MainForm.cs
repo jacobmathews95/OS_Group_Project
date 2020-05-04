@@ -16,5 +16,20 @@ namespace testapp1
         {
             InitializeComponent();
         }
+
+        private void label1_Click(object sender, EventArgs e) 
+        {
+
+        }
+
+        private void lblMLFP_Click(object sender, EventArgs e) //MULTILEVEL FINISHED PROCESSES LABEL
+        {
+
+        }
+
+        private void lblMLFPVal_Click(object sender, EventArgs e) // MULTILEVEL FINISHED PROCESSES VALUE LABEL
+        {
+
+        }
     }
 }
