@@ -64,6 +64,8 @@
             this.tbl2 = new System.Windows.Forms.DataGridView();
             this.lblMLWP2Val = new System.Windows.Forms.Label();
             this.lblMLWP2 = new System.Windows.Forms.Label();
+            this.rrGantt = new System.Windows.Forms.TabPage();
+            this.mlqGantt = new System.Windows.Forms.TabPage();
             this.tabMain.SuspendLayout();
             this.rr.SuspendLayout();
             this.mlq.SuspendLayout();
@@ -76,6 +78,8 @@
             // 
             this.tabMain.Controls.Add(this.rr);
             this.tabMain.Controls.Add(this.mlq);
+            this.tabMain.Controls.Add(this.rrGantt);
+            this.tabMain.Controls.Add(this.mlqGantt);
             this.tabMain.Location = new System.Drawing.Point(12, 37);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
@@ -434,6 +438,26 @@
             this.lblMLWP2.TabIndex = 26;
             this.lblMLWP2.Text = "Queue 2 Waiting: ";
             // 
+            // rrGantt
+            // 
+            this.rrGantt.Location = new System.Drawing.Point(4, 22);
+            this.rrGantt.Name = "rrGantt";
+            this.rrGantt.Padding = new System.Windows.Forms.Padding(3);
+            this.rrGantt.Size = new System.Drawing.Size(768, 366);
+            this.rrGantt.TabIndex = 2;
+            this.rrGantt.Text = "Round Robin Gantt Chart";
+            this.rrGantt.UseVisualStyleBackColor = true;
+            // 
+            // mlqGantt
+            // 
+            this.mlqGantt.Location = new System.Drawing.Point(4, 22);
+            this.mlqGantt.Name = "mlqGantt";
+            this.mlqGantt.Padding = new System.Windows.Forms.Padding(3);
+            this.mlqGantt.Size = new System.Drawing.Size(768, 366);
+            this.mlqGantt.TabIndex = 3;
+            this.mlqGantt.Text = "Multilevel Queue Gantt Chart";
+            this.mlqGantt.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -497,5 +521,7 @@
         private System.Windows.Forms.DataGridView tbl2;
         private System.Windows.Forms.Label lblMLWP2Val;
         private System.Windows.Forms.Label lblMLWP2;
+        private System.Windows.Forms.TabPage rrGantt;
+        private System.Windows.Forms.TabPage mlqGantt;
     }
 }
