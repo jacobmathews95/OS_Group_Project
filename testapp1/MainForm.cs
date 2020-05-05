@@ -19,6 +19,10 @@ namespace testapp1
             tbl1.AutoGenerateColumns = true;
             tbl1.DataSource = dsInputs; // dataset
             tbl1.DataMember = "RR"; // table name you need to show
+
+            tbl2.AutoGenerateColumns = true;
+            tbl2.DataSource = dsInputs; // dataset
+            tbl2.DataMember = "MLQ"; // table name you need to show
         }
 
         private void label1_Click(object sender, EventArgs e) 
@@ -78,7 +82,7 @@ namespace testapp1
             dsInputs.Tables.Add(tRR);
             dsInputs.Tables.Add(tMLQ);
 
-
+            #region Add RR Data
             DataRow dr1 = tRR.NewRow();
             dr1["pid"] = "P1";
             tRR.Rows.Add(dr1);
@@ -120,7 +124,45 @@ namespace testapp1
             tRR.Rows[5][1] = 10;
             tRR.Rows[5][2] = 10;
             tRR.Rows[5][3] = 105;
+            #endregion
 
+            #region Add MLQ Data
+            DataRow r1 = tMLQ.NewRow();
+            r1["pid"] = "P1";
+            tMLQ.Rows.Add(r1);
+            tMLQ.Rows[0][1] = 12;
+            tMLQ.Rows[0][2] = 1;
+            tMLQ.Rows[0][3] = 0;
+
+            DataRow r2 = tMLQ.NewRow();
+            r2["pid"] = "P2";
+            tMLQ.Rows.Add(r2);
+            tMLQ.Rows[1][1] = 8;
+            tMLQ.Rows[1][2] = 2;
+            tMLQ.Rows[1][3] = 4;
+
+            DataRow r3 = tMLQ.NewRow();
+            r3["pid"] = "P3";
+            tMLQ.Rows.Add(r3);
+            tMLQ.Rows[2][1] = 6;
+            tMLQ.Rows[2][2] = 1;
+            tMLQ.Rows[2][3] = 5;
+
+            DataRow r4 = tMLQ.NewRow();
+            r4["pid"] = "P4";
+            tMLQ.Rows.Add(r4);
+            tMLQ.Rows[3][1] = 5;
+            tMLQ.Rows[3][2] = 2;
+            tMLQ.Rows[3][3] = 12;
+
+            DataRow r5 = tMLQ.NewRow();
+            r5["pid"] = "P5";
+            tMLQ.Rows.Add(r5);
+            tMLQ.Rows[4][1] = 10;
+            tMLQ.Rows[4][2] = 2;
+            tMLQ.Rows[4][3] = 18;
+
+            #endregion
 
         }
 

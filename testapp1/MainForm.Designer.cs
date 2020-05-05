@@ -45,8 +45,8 @@
             this.mlq = new System.Windows.Forms.TabPage();
             this.lblMLFPVal = new System.Windows.Forms.Label();
             this.lblMLFP = new System.Windows.Forms.Label();
-            this.lblMLWPVal = new System.Windows.Forms.Label();
-            this.lblMLWP = new System.Windows.Forms.Label();
+            this.lblMLWP1Val = new System.Windows.Forms.Label();
+            this.lblMLWP1 = new System.Windows.Forms.Label();
             this.lblMLQLVal = new System.Windows.Forms.Label();
             this.lblMLQL = new System.Windows.Forms.Label();
             this.lblMLCPVal = new System.Windows.Forms.Label();
@@ -55,18 +55,21 @@
             this.lblMLCT = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.lblTQ = new System.Windows.Forms.Label();
             this.lblTQVal = new System.Windows.Forms.Label();
             this.btnMinus = new System.Windows.Forms.Button();
             this.btnPlus = new System.Windows.Forms.Button();
             this.dsInputs = new System.Data.DataSet();
             this.tbl1 = new System.Windows.Forms.DataGridView();
+            this.tbl2 = new System.Windows.Forms.DataGridView();
+            this.lblMLWP2Val = new System.Windows.Forms.Label();
+            this.lblMLWP2 = new System.Windows.Forms.Label();
             this.tabMain.SuspendLayout();
             this.rr.SuspendLayout();
             this.mlq.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dsInputs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbl2)).BeginInit();
             this.SuspendLayout();
             // 
             // tabMain
@@ -213,10 +216,13 @@
             // 
             // mlq
             // 
+            this.mlq.Controls.Add(this.lblMLWP2Val);
+            this.mlq.Controls.Add(this.lblMLWP2);
+            this.mlq.Controls.Add(this.tbl2);
             this.mlq.Controls.Add(this.lblMLFPVal);
             this.mlq.Controls.Add(this.lblMLFP);
-            this.mlq.Controls.Add(this.lblMLWPVal);
-            this.mlq.Controls.Add(this.lblMLWP);
+            this.mlq.Controls.Add(this.lblMLWP1Val);
+            this.mlq.Controls.Add(this.lblMLWP1);
             this.mlq.Controls.Add(this.lblMLQLVal);
             this.mlq.Controls.Add(this.lblMLQL);
             this.mlq.Controls.Add(this.lblMLCPVal);
@@ -225,7 +231,6 @@
             this.mlq.Controls.Add(this.lblMLCT);
             this.mlq.Controls.Add(this.button1);
             this.mlq.Controls.Add(this.button2);
-            this.mlq.Controls.Add(this.tableLayoutPanel2);
             this.mlq.Location = new System.Drawing.Point(4, 22);
             this.mlq.Name = "mlq";
             this.mlq.Padding = new System.Windows.Forms.Padding(3);
@@ -254,23 +259,23 @@
             this.lblMLFP.Text = "Finished Processes: ";
             this.lblMLFP.Click += new System.EventHandler(this.lblMLFP_Click);
             // 
-            // lblMLWPVal
+            // lblMLWP1Val
             // 
-            this.lblMLWPVal.AutoSize = true;
-            this.lblMLWPVal.Location = new System.Drawing.Point(201, 289);
-            this.lblMLWPVal.Name = "lblMLWPVal";
-            this.lblMLWPVal.Size = new System.Drawing.Size(39, 13);
-            this.lblMLWPVal.TabIndex = 13;
-            this.lblMLWPVal.Text = "[value]";
+            this.lblMLWP1Val.AutoSize = true;
+            this.lblMLWP1Val.Location = new System.Drawing.Point(188, 276);
+            this.lblMLWP1Val.Name = "lblMLWP1Val";
+            this.lblMLWP1Val.Size = new System.Drawing.Size(39, 13);
+            this.lblMLWP1Val.TabIndex = 13;
+            this.lblMLWP1Val.Text = "[value]";
             // 
-            // lblMLWP
+            // lblMLWP1
             // 
-            this.lblMLWP.AutoSize = true;
-            this.lblMLWP.Location = new System.Drawing.Point(94, 289);
-            this.lblMLWP.Name = "lblMLWP";
-            this.lblMLWP.Size = new System.Drawing.Size(101, 13);
-            this.lblMLWP.TabIndex = 12;
-            this.lblMLWP.Text = "Waiting Processes: ";
+            this.lblMLWP1.AutoSize = true;
+            this.lblMLWP1.Location = new System.Drawing.Point(81, 276);
+            this.lblMLWP1.Name = "lblMLWP1";
+            this.lblMLWP1.Size = new System.Drawing.Size(93, 13);
+            this.lblMLWP1.TabIndex = 12;
+            this.lblMLWP1.Text = "Queue 1 Waiting: ";
             // 
             // lblMLQLVal
             // 
@@ -311,7 +316,7 @@
             // lblMLCTVal
             // 
             this.lblMLCTVal.AutoSize = true;
-            this.lblMLCTVal.Location = new System.Drawing.Point(370, 191);
+            this.lblMLCTVal.Location = new System.Drawing.Point(369, 210);
             this.lblMLCTVal.Name = "lblMLCTVal";
             this.lblMLCTVal.Size = new System.Drawing.Size(39, 13);
             this.lblMLCTVal.TabIndex = 7;
@@ -320,7 +325,7 @@
             // lblMLCT
             // 
             this.lblMLCT.AutoSize = true;
-            this.lblMLCT.Location = new System.Drawing.Point(297, 191);
+            this.lblMLCT.Location = new System.Drawing.Point(296, 210);
             this.lblMLCT.Name = "lblMLCT";
             this.lblMLCT.Size = new System.Drawing.Size(73, 13);
             this.lblMLCT.TabIndex = 6;
@@ -329,7 +334,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(362, 149);
+            this.button1.Location = new System.Drawing.Point(361, 168);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 5;
@@ -338,31 +343,12 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(259, 149);
+            this.button2.Location = new System.Drawing.Point(258, 168);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 4;
             this.button2.Text = "Calculate";
             this.button2.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 4;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 57F));
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 6;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(756, 124);
-            this.tableLayoutPanel2.TabIndex = 3;
             // 
             // lblTQ
             // 
@@ -417,6 +403,37 @@
             this.tbl1.Size = new System.Drawing.Size(757, 150);
             this.tbl1.TabIndex = 24;
             // 
+            // tbl2
+            // 
+            this.tbl2.AutoGenerateColumns = false;
+            this.tbl2.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tbl2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbl2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tbl2.DataSource = this.dsInputs;
+            this.tbl2.GridColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tbl2.Location = new System.Drawing.Point(6, 0);
+            this.tbl2.Name = "tbl2";
+            this.tbl2.Size = new System.Drawing.Size(757, 150);
+            this.tbl2.TabIndex = 25;
+            // 
+            // lblMLWP2Val
+            // 
+            this.lblMLWP2Val.AutoSize = true;
+            this.lblMLWP2Val.Location = new System.Drawing.Point(188, 300);
+            this.lblMLWP2Val.Name = "lblMLWP2Val";
+            this.lblMLWP2Val.Size = new System.Drawing.Size(39, 13);
+            this.lblMLWP2Val.TabIndex = 27;
+            this.lblMLWP2Val.Text = "[value]";
+            // 
+            // lblMLWP2
+            // 
+            this.lblMLWP2.AutoSize = true;
+            this.lblMLWP2.Location = new System.Drawing.Point(81, 300);
+            this.lblMLWP2.Name = "lblMLWP2";
+            this.lblMLWP2.Size = new System.Drawing.Size(93, 13);
+            this.lblMLWP2.TabIndex = 26;
+            this.lblMLWP2.Text = "Queue 2 Waiting: ";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -436,6 +453,7 @@
             this.mlq.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dsInputs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbl2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -454,7 +472,6 @@
         private System.Windows.Forms.Button btnPlus;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label lblMLCTVal;
         private System.Windows.Forms.Label lblMLCT;
         private System.Windows.Forms.Label lblRRFPVal;
@@ -469,13 +486,16 @@
         private System.Windows.Forms.Label lblRRCT;
         private System.Windows.Forms.Label lblMLFPVal;
         private System.Windows.Forms.Label lblMLFP;
-        private System.Windows.Forms.Label lblMLWPVal;
-        private System.Windows.Forms.Label lblMLWP;
+        private System.Windows.Forms.Label lblMLWP1Val;
+        private System.Windows.Forms.Label lblMLWP1;
         private System.Windows.Forms.Label lblMLQLVal;
         private System.Windows.Forms.Label lblMLQL;
         private System.Windows.Forms.Label lblMLCPVal;
         private System.Windows.Forms.Label lblMLCP;
         private System.Data.DataSet dsInputs;
         private System.Windows.Forms.DataGridView tbl1;
+        private System.Windows.Forms.DataGridView tbl2;
+        private System.Windows.Forms.Label lblMLWP2Val;
+        private System.Windows.Forms.Label lblMLWP2;
     }
 }
