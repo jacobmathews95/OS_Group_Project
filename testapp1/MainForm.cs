@@ -12,6 +12,9 @@ namespace testapp1
 {
     public partial class MainForm : Form
     {
+        private DataTable tRR;
+        private DataTable tMLQ;
+
         public MainForm()
         {
             InitializeComponent();
@@ -52,8 +55,8 @@ namespace testapp1
         {
 
             // Create two DataTables.
-            DataTable tRR = new DataTable("RR");
-            DataTable tMLQ = new DataTable("MLQ");
+            tRR = new DataTable("RR");
+            tMLQ = new DataTable("MLQ");
 
             // Create column definitions
             DataColumn cPID = new DataColumn("pid", typeof(string));
