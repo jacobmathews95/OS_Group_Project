@@ -367,7 +367,6 @@ namespace testapp1
                 else if (Q.qProcess[0].getRemainingTime() <= tQ)
                 {
                     time += Q.qProcess[0].getRemainingTime();
-                    mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q.QueueString, Q2.QueueString, FinishProcess);
                     Q.qProcess[0].setRemainingTime(Q.qProcess[0].getRemainingTime());
                     Debug.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
                     Q.qProcess[0].isFinished = true;
@@ -377,6 +376,7 @@ namespace testapp1
                     //Waiting Time: 
                     Q.qProcess[0].setWaitingTime(time - Q.qProcess[0].getBurstTime() - Q.qProcess[0].getArrivalTime());
                     seq += "->" + Q.qProcess[0].getName();
+                    mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q.QueueString, Q2.QueueString, FinishProcess);
                     Q.qProcess.RemoveAt(0);
                 }
                 else
@@ -430,7 +430,7 @@ namespace testapp1
                                 if (Q.qProcess[0].getRemainingTime() > execTime)
                                 {
                                     time += execTime;
-                                    mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q.QueueString, Q1.QueueString, FinishProcess);
+                                    //mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q1.QueueString, Q.QueueString, FinishProcess);
                                     Q.qProcess[0].setRemainingTime(execTime);
                                     Q.qProcess.Add(Q.qProcess[0]);
                                     //Q.qProcess.RemoveAt(0);
@@ -439,7 +439,7 @@ namespace testapp1
                                 else if (Q.qProcess[0].getRemainingTime() <= execTime)
                                 {
                                     time += Q.qProcess[0].getRemainingTime();
-                                    mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q1.QueueString, Q.QueueString, FinishProcess);
+                                    //mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q1.QueueString, Q.QueueString, FinishProcess);
                                     Q.qProcess[0].setRemainingTime(Q.qProcess[0].getRemainingTime());
                                     Debug.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
                                     Q.qProcess[0].isFinished = true;
@@ -450,7 +450,7 @@ namespace testapp1
                                     Q.qProcess[0].setWaitingTime(time - Q.qProcess[0].getBurstTime() - Q.qProcess[0].getArrivalTime());
 
                                 }
-                                //mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q.QueueString, Q1.QueueString, FinishProcess);
+                                mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q.QueueString, Q1.QueueString, FinishProcess);
                                 seq += "->" + Q.qProcess[0].getName();
                                 Q.qProcess.RemoveAt(0);
                                 return flag;
@@ -462,58 +462,56 @@ namespace testapp1
             #endregion
 
             //if no premption is necessary
-            ScheduleTask(mainForm, Q, tQ, ref time, ref seq, Q1);
-
-            Q.qProcess.ForEach(delegate (Process p)
+            //ScheduleTask(mainForm, Q, tQ, ref time, ref seq, Q1);
+            if (Q.qProcess[0].getRemainingTime() > 0)
             {
-                p.print();
-            });
+                //setting flag as we need to work on the process
+                flag = false;
 
-            Debug.WriteLine("");
-            Debug.WriteLine("");
-            Debug.WriteLine("");
-            Debug.WriteLine("");
+                //Remaining time to execute is greater than TQ
+                if (Q.qProcess[0].getRemainingTime() > tQ)
+                {
+                    time += tQ;
+                    mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q1.QueueString, Q.QueueString, FinishProcess);
+                    Q.qProcess[0].setRemainingTime(tQ);
+                    Q.qProcess.Add(Q.qProcess[0]);
+                    seq += "->" + Q.qProcess[0].getName();
+                    Q.qProcess.RemoveAt(0);
+                    //return flag;
 
+                }
+                //Remaining time to execute is less than TQ, process almost done.
+                else if (Q.qProcess[0].getRemainingTime() <= tQ)
+                {
+                    time += Q.qProcess[0].getRemainingTime();
+                    Q.qProcess[0].setRemainingTime(Q.qProcess[0].getRemainingTime());
+                    Debug.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
+                    Q.qProcess[0].isFinished = true;
+                    Q.qProcess[0].completionTime = time;
+                    Q.qProcess[0].turnAroundTime = time - Q.qProcess[0].getArrivalTime();
 
-            return flag;
-        }
+                    //Waiting Time: 
+                    Q.qProcess[0].setWaitingTime(time - Q.qProcess[0].getBurstTime() - Q.qProcess[0].getArrivalTime());
+                    seq += "->" + Q.qProcess[0].getName();
+                    mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q1.QueueString, Q.QueueString, FinishProcess);
+                    Q.qProcess.RemoveAt(0);
+                }
+            }
 
-        public bool CompleteTask(MainForm mainForm, Queue Q, int execTime, ref string seq, Queue Q1)
+        Q.qProcess.ForEach(delegate (Process p)
         {
-            bool flag = true;
-            if (Q.qProcess[0].getRemainingTime() > execTime)
-            {
-                flag = false;
-                time += execTime;
-                mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q.QueueString, Q1.QueueString, FinishProcess);
-                Q.qProcess[0].setRemainingTime(execTime);
-                Q.qProcess.Add(Q.qProcess[0]);
-                Q.qProcess.RemoveAt(0);
-                return flag;
-            }
-            else if (Q.qProcess[0].getRemainingTime() <= execTime)
-            {
-                flag = false;
-                time += Q.qProcess[0].getRemainingTime();
-                mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q1.QueueString, Q.QueueString, FinishProcess);
-                Q.qProcess[0].setRemainingTime(Q.qProcess[0].getRemainingTime());
-                Debug.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
-                Q.qProcess[0].isFinished = true;
-                Q.qProcess[0].completionTime = time;
-                Q.qProcess[0].turnAroundTime = time - Q.qProcess[0].getArrivalTime();
+            p.print();
+        });
 
-                //Waiting Time: 
-                Q.qProcess[0].setWaitingTime(time - Q.qProcess[0].getBurstTime() - Q.qProcess[0].getArrivalTime());
-                seq += "->" + Q.qProcess[0].getName();
-                Q.qProcess.RemoveAt(0);
-                return flag;
-            }
-            //mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q.QueueString, Q1.QueueString, FinishProcess);
-            //seq += "->" + Q.qProcess[0].getName();
-            //Q.qProcess.RemoveAt(0);
+            Debug.WriteLine("");
+            Debug.WriteLine("");
+            Debug.WriteLine("");
+            Debug.WriteLine("");
+
+
             return flag;
-
         }
+
 
         public float AverageTAT(List<Process> pro)
         {

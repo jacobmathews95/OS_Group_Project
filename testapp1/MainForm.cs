@@ -16,6 +16,7 @@ namespace testapp1
         private DataTable tRR;
         private DataTable tMLQ;
         private MultiLevelQueue mlqAlgo;
+        private PriorityScheduling priorityAlgo;
 
         public MainForm()
         {
@@ -28,6 +29,10 @@ namespace testapp1
             tbl2.AutoGenerateColumns = true;
             tbl2.DataSource = dsInputs; // dataset
             tbl2.DataMember = "MLQ"; // table name you need to show
+
+            priorityAlgo = new PriorityScheduling();
+            for (int i = 0; i < tRR.Rows.Count; i++)
+                priorityAlgo.Processes.Add(new Process(tRR.Rows[i].Field<string>(0), tRR.Rows[i].Field<int>(2), tRR.Rows[i].Field<int>(1), tRR.Rows[i].Field<int>(3)));
 
             mlqAlgo = new MultiLevelQueue();
             for (int i = 0; i < tMLQ.Rows.Count; i++) //Should it be until count
@@ -179,6 +184,20 @@ namespace testapp1
             tMLQ.Rows[4][3] = 18;
 
             #endregion
+
+        }
+        
+        private void buttonRR_Click(object sender, EventArgs e)
+        {
+            String seq = "";
+            priorityAlgo.PrioritySchedule(this, priorityAlgo.Processes, ref seq);
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            priorityAlgo.Processes.ForEach(delegate (Process p)
+            {
+                p.print();
+            });
 
         }
 

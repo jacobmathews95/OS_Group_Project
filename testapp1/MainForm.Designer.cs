@@ -237,6 +237,7 @@
             this.btnCalc.Size = new System.Drawing.Size(75, 23);
             this.btnCalc.TabIndex = 1;
             this.btnCalc.Text = "Calculate";
+            this.btnCalc.Click += new System.EventHandler(this.buttonRR_Click);
             this.btnCalc.UseVisualStyleBackColor = true;
             // 
             // mlq
