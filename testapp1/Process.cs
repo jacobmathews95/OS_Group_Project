@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace testapp1
 {
-    class Process
+    public class Process
     {
         string name;
         int priority;
@@ -18,6 +18,9 @@ namespace testapp1
         //Might help is algorithm
         public bool processWaiting { get; set; }
         public bool isFinished { get; set; }
+
+        public int completionTime { get; set; }
+        public int turnAroundTime { get; set; }
 
         public Process(string _name, int _priority, int _burstTime, int _arrivalTime)
         {
@@ -62,6 +65,8 @@ namespace testapp1
             return waitingTime;
         }
 
+
+
         //Setters
         //arg: gets exectuted time that needs to be subracted 
         public void setRemainingTime(int executedTime)
@@ -93,282 +98,401 @@ namespace testapp1
 
     }
 
-    static void notMain(string[] args)
+    public class Queue
     {
 
-        //List of processes can be done dynamically if needed
-        List<Process> processes = new List<Process>();
+        public List<Process> qProcess { get; set; }
+        public int timeQuantum { get; set; }
 
-        processes.Add(new Process("p1", 1, 12, 0));
-        processes.Add(new Process("p2", 2, 8, 4));
-        processes.Add(new Process("p3", 1, 6, 5));
-        processes.Add(new Process("p4", 2, 5, 12));
-        processes.Add(new Process("p5", 2, 10, 18));
+        public bool IsActive { get; set; }
 
-        //Q1
-        //processes.Add(new Process("p1", 40, 15, 0));
-        //processes.Add(new Process("p2", 30, 25, 25));
-        //processes.Add(new Process("p3", 30, 20, 30));
-        //processes.Add(new Process("p4", 35, 15, 50));
-        //processes.Add(new Process("p5", 5, 15, 100));
-        //processes.Add(new Process("p6", 10, 10, 105));
-
-        processes.ForEach(delegate (Process p)
+        public Queue()
         {
-            p.print();
-        });
-        Process idle = new Process("p_idle", 999, 99999, 0);
-
-        idle.print();
-
-        Queue q1 = new Queue();
-        Queue q2 = new Queue();
-        q1.timeQuantum = 3;
-        q2.timeQuantum = 4;
-
-        q1.IsActive = true;
-        List<int> completionTime = new List<int>();
-        List<int> arrival = new List<int>();
-
-        processes.ForEach(delegate (Process p)
-        {
-            //if(p.getPriority() == 1)
-            q1.qProcess.Add(p);
-            arrival.Add(p.getArrivalTime());
-        });
-
-        int time = 0;
-        int tQ = q1.timeQuantum;
-
-        Queue readyQ = new Queue();
-        Queue readyQ2 = new Queue();
-        List<int> arrivalT = new List<int>();
-        List<int> arrivalT2 = new List<int>();
-        String seq = "";
-
-
-        //processes.ForEach(delegate (Process p)
-        //{
-        //    if (p.getPriority() == 1)
-        //        readyQ.qProcess.Add(p);
-        //    else if (p.getPriority() == 2)
-        //        readyQ2.qProcess.Add(p);
-
-        //});
-
-
-        //Copy of arrival time : from process list
-        //readyQ.qProcess.ForEach(delegate (Process p)
-        //{
-        //    arrivalT.Add(p.getArrivalTime());
-        //});
-        //readyQ2.qProcess.ForEach(delegate (Process p)
-        //{
-        //    arrivalT2.Add(p.getArrivalTime());
-        //});
-        
-
-        while (true)
-        {
-            Boolean finished = true;
-
-            finished = RoundRobinA(q1, arrival, ref time, ref tQ, ref seq, readyQ.qProcess[0].getPriority());
-            //finished = RoundRobinA(readyQ2, arrivalT, ref time, ref tQ, ref seq, readyQ.qProcess[0].getPriority());
-
-            if (finished)
-            {
-                break;
-            }
+            qProcess = new List<Process>();
         }
 
-        processes.ForEach(delegate (Process p)
+        public Queue(int tQ)
         {
-            p.print();
-        });
+            this.timeQuantum = tQ;
+            qProcess = new List<Process>();
+        }
+        public void printQ()
+        {
+            Console.WriteLine("Q: " + qProcess.Count);
+        }
+
+        public bool isEmpty()
+        {
+            int r = -1;
+            qProcess.ForEach(delegate (Process p)
+            {
+                if (!p.isFinished)
+                {
+                    r = 1;
+                }
+            });
+
+            if (r == 1)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        //May be add isEmpty, Priority...
     }
 
-    public static bool RoundRobinA(Queue q1, List<int> arrivalT, ref int time, ref int tQ, ref string seq, int priority = 1)
+
+    class Program
     {
-        //int time = 0;
-        //int tQ = q1.timeQuantum;
-
-        //Queue readyQ = new Queue();
-        //Queue readyQ2 = new Queue();
-        //List<int> arrivalT = new List<int>();
-        //String seq = "";
-
-        //Copy of arrival time : from process list
-        q1.qProcess.ForEach(delegate (Process p)
+        static void ForReference(string[] args)
         {
-            arrivalT.Add(p.getArrivalTime());
-        });
+            //List of processes can be done dynamically if needed
+            List<Process> processes = new List<Process>();
 
-        if (priority == 1)
+            processes.Add(new Process("p1", 1, 12, 0));
+            processes.Add(new Process("p2", 2, 8, 4));
+            processes.Add(new Process("p3", 1, 6, 5));
+            processes.Add(new Process("p4", 2, 5, 12));
+            processes.Add(new Process("p5", 2, 10, 18));
+
+
+            processes.ForEach(delegate (Process p)
+            {
+                p.print();
+            });
+            //Process idle = new Process("p_idle", 999, 99999, 0);
+
+            //idle.print();
+            String seq = "";
+
+            MultiLevelQ(processes, ref seq);
+
+
+            //RoundRobinA(q1);
+            //Average TAT
+
+            processes.ForEach(delegate (Process p)
+            {
+                p.print();
+
+                //Console.WriteLine(p.getName() + " " + p.completionTime + "  " + p.turnAroundTime);
+                //tat += p.turnAroundTime;
+            });
+
+
+            Console.WriteLine("AVG: TAT          = " + AverageTAT(processes));
+            Console.WriteLine("AVG: Waiting Time = " + AverageWaitingTime(processes));
+
+            Console.WriteLine(seq);
+
+        }
+
+        public static void MultiLevelQ(List<Process> processes, ref string seq)
         {
+            int time = 0;
+            //High Priority Q with time quantum 3
+            Queue readyQ = new Queue(3);
+
+            //Low Priority Q with time qunatum 4
+            Queue readyQ2 = new Queue(4);
+
+            //Running alorithm
             while (true)
             {
-                Boolean flag = true;
-                for (int i = 0; i < q1.qProcess.Count; i++)
-                {
-                    //Process Arriving before qunatum time
-                    if (arrivalT[i] <= time)
-                    {
-                        //If process gets completed in it's first loop
-                        if (arrivalT[i] <= tQ)
-                        {
-                            //Checking to see if process is completed or not
-                            if (q1.qProcess[i].getRemainingTime() > 0)
-                            {
-                                flag = false;
-                                updateProcess(q1.qProcess[i], arrivalT, i, ref time, ref tQ, ref seq);
-                            }
-                        }
-                        //if process needs to be executed again or 
-                        else if (arrivalT[i] > tQ)
-                        {
+                //Breaking condition
+                bool flag = true;
 
-                            // is any have less arrival time 
-                            // the coming process then execute them 
-                            for (int j = 0; j < q1.qProcess.Count; j++)
+                //Adding process to respective queue if they have arrived
+                processes.ForEach(delegate (Process p)
+                {
+                    //Arrived Processes
+                    if (p.getArrivalTime() <= time)
+                    {
+                        //High priority
+                        if (p.getPriority() == 1)
+                        {
+                            //If not already on Q and is not finished
+                            if (!readyQ.qProcess.Contains(p) && p.isFinished == false)
                             {
-                                // compare and executing the processes that are following the first arrivals. 
-                                if (arrivalT[j] < arrivalT[i])
+                                //1st Pass
+                                if (readyQ.qProcess.Count > 0)
                                 {
-                                    if (q1.qProcess[j].getRemainingTime() > 0)
+                                    //Also using this * to attach the old process at the end
+                                    if (readyQ.qProcess[0].getBurstTime() == readyQ.qProcess[0].getRemainingTime() && readyQ.qProcess.Count > 1)
                                     {
-                                        flag = false;
-                                        updateProcess(q1.qProcess[j], arrivalT, j, ref time, ref tQ, ref seq);
+                                        readyQ.qProcess.Add(p);
+                                    }
+                                    //Attaching in front 
+                                    else
+                                    {
+                                        readyQ.qProcess.Insert(0, p);
                                     }
                                 }
+                                //Subsiquient Passes
+                                else
+                                {
+
+                                    readyQ.qProcess.Insert(0, p);
+
+                                }
+                                Console.WriteLine("Added: " + p.getName() + " @ " + time);
                             }
-                            // now updating process added back to queue (executed once )
-                            if (q1.qProcess[i].getRemainingTime() > 0)
+                        }
+                        //Same for Low priority Q
+                        else if (p.getPriority() == 2)
+                        {
+                            if (!readyQ2.qProcess.Contains(p) && p.isFinished == false)
                             {
-                                flag = false;
-                                updateProcess(q1.qProcess[i], arrivalT, i, ref time, ref tQ, ref seq);
+                                if (readyQ2.qProcess.Count > 0)
+                                {
+                                    if (readyQ2.qProcess[0].getBurstTime() == readyQ2.qProcess[0].getRemainingTime())
+                                    {
+                                        readyQ2.qProcess.Add(p);
+                                    }
+                                    else
+                                    {
+                                        readyQ2.qProcess.Insert(0, p);
+                                    }
+                                }
+                                else
+                                {
+                                    readyQ2.qProcess.Insert(0, p);
+                                }
+
+                                Console.WriteLine("Added: " + p.getName() + " @2 " + time);
                             }
                         }
                     }
+                });
 
-                    // if no process is come on thse critical 
-                    else if (arrivalT[i] > time)
+                //Checking if 1st Queue is not empty
+                if (!readyQ.isEmpty())
+                {
+                    //HP Q not to worry about premption.
+                    flag = ScheduleTask(readyQ, readyQ.timeQuantum, ref time, ref seq);
+                }
+                //HP (high priority) Q is empty, we execute LP Q
+                else if (readyQ.isEmpty() && !readyQ2.isEmpty())
+                {
+                    //Have o take care of premption.
+                    flag = ScheduleTask2(readyQ2, readyQ2.timeQuantum, ref time, ref seq, processes, readyQ);
+                }
+                //We only exit if all the tasks are done, taking care of instances when the Q is empty
+                else
+                {
+                    //Checking is all task are completed
+                    int r = -1;
+                    processes.ForEach(delegate (Process p)
                     {
-                        //seq += "->"; //+ q1.qProcess[j].getName();
+                        if (!p.isFinished)
+                        {
+                            r = 1;
+                        }
+                        else
+                        {
+                            //Console.WriteLine(p.getName() + " done " + time);
+                        }
+                    });
+
+                    if (r == 1)
+                    {
+                        flag = false;
                         time++;
-                        i--;
-                        Console.WriteLine("Line: " + q1.qProcess[i].getName());
+                    }
+
+                    else
+                    {
+                        flag = true;
+                        break;
+                        Console.WriteLine("DOne");
                     }
                 }
 
-                // for exit the while loop 
                 if (flag)
-                {
-
                     break;
-                }
             }
         }
-        //optional priority may be needed for Multilevel Queue.
-        else if (priority == 2)
+
+        //HP schedule
+        public static bool ScheduleTask(Queue Q, int tQ, ref int time, ref string seq)
         {
-            while (true)
+            bool flag = true;
+            //checking if the process is still not finished
+            if (Q.qProcess[0].getRemainingTime() > 0)
             {
-                Boolean flag = true;
-                for (int i = 0; i < q1.qProcess.Count; i++)
+                //setting flag as we need to work on the process
+                flag = false;
+
+                //Remaining time to execute is greater than TQ
+                if (Q.qProcess[0].getRemainingTime() > tQ)
                 {
-                    //Process Arriving before qunatum time
-                    if (arrivalT[i] <= time)
-                    {
-                        //If process gets completed in it's first loop
-                        if (arrivalT[i] <= tQ)
-                        {
-                            //Checking to see if process is completed or not
-                            if (q1.qProcess[i].getRemainingTime() > 0)
-                            {
-                                flag = false;
-                                updateProcess(q1.qProcess[i], arrivalT, i, ref time, ref tQ, ref seq);
-                            }
-                        }
-                        //if process needs to be executed again or 
-                        else if (arrivalT[i] > tQ)
-                        {
+                    time += tQ;
+                    Q.qProcess[0].setRemainingTime(tQ);
+                    Q.qProcess.Add(Q.qProcess[0]);
+                    seq += "->" + Q.qProcess[0].getName();
+                    Q.qProcess.RemoveAt(0);
+                    //return flag;
 
-                            // is any have less arrival time 
-                            // the coming process then execute them 
-                            for (int j = 0; j < q1.qProcess.Count; j++)
-                            {
-                                // compare and executing the processes that are following the first arrivals. 
-                                if (arrivalT[j] < arrivalT[i])
-                                {
-                                    if (q1.qProcess[j].getRemainingTime() > 0)
-                                    {
-                                        flag = false;
-                                        updateProcess(q1.qProcess[j], arrivalT, j, ref time, ref tQ, ref seq);
-                                    }
-                                }
-                            }
-                            // now updating process added back to queue (executed once )
-                            if (q1.qProcess[i].getRemainingTime() > 0)
-                            {
-                                flag = false;
-                                updateProcess(q1.qProcess[i], arrivalT, i, ref time, ref tQ, ref seq);
-                            }
-                        }
-                    }
-
-                    // if no process is come on thse critical 
-                    else if (arrivalT[i] > time)
-                    {
-                        //seq += "->"; //+ q1.qProcess[j].getName();
-                        time++;
-                        i--;
-                        Console.WriteLine("Line: " + q1.qProcess[i].getName());
-                    }
                 }
-
-                // for exit the while loop 
-                if (flag)
+                //Remaining time to execute is less than TQ, process almost done.
+                else if (Q.qProcess[0].getRemainingTime() <= tQ)
                 {
+                    time += Q.qProcess[0].getRemainingTime();
+                    Q.qProcess[0].setRemainingTime(Q.qProcess[0].getRemainingTime());
+                    Console.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
+                    Q.qProcess[0].isFinished = true;
+                    Q.qProcess[0].completionTime = time;
+                    Q.qProcess[0].turnAroundTime = time - Q.qProcess[0].getArrivalTime();
 
-                    break;
+                    //Waiting Time: 
+                    Q.qProcess[0].setWaitingTime(time - Q.qProcess[0].getBurstTime() - Q.qProcess[0].getArrivalTime());
+                    seq += "->" + Q.qProcess[0].getName();
+                    Q.qProcess.RemoveAt(0);
+                }
+                else
+                {
+                    //return !flag;
                 }
             }
+
+            //Utility used while debugging
+            Q.qProcess.ForEach(delegate (Process p)
+            {
+                p.print();
+            });
+
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+
+            return flag;
         }
 
-        Console.WriteLine(seq);
-        return true;
-
-    }
-
-    public static void updateProcess(Process p, List<int> arrivalT, int i, ref int time, ref int tQ, ref string seq)
-    {
-        if (p.getRemainingTime() > tQ)
+        //For LP Q
+        public static bool ScheduleTask2(Queue Q, int tQ, ref int time, ref string seq, List<Process> refProcesses, Queue Q1)
         {
+            bool flag = true;
 
-            // make decrease the b time 
-            time = time + tQ;
-            p.setRemainingTime(tQ);
-            arrivalT[i] = arrivalT[i] + tQ;
-            seq += "->" + p.getName();
-            //
+
+            //for (int i = 0; i < Q.qProcess.Count; i++)
+            //{
+
+            if (Q.qProcess[0].getRemainingTime() > 0)
+            {
+                flag = false;
+                //Checking to see if the process needs to be prempted.
+                for (int i = 0; i < refProcesses.Count; i++)
+                {
+                    if (refProcesses[i].getPriority() == 1 && !Q1.qProcess.Contains(refProcesses[i]))
+                    {
+                        if (!refProcesses[i].isFinished)
+                        {
+                            int execTime = refProcesses[i].getArrivalTime() - time;
+                            if (execTime < tQ)
+                            {
+                                Console.WriteLine("Found Process that is not in Q1 and could come in  " + execTime);
+
+                                if (Q.qProcess[0].getRemainingTime() > execTime)
+                                {
+                                    time += execTime;
+                                    Q.qProcess[0].setRemainingTime(execTime);
+                                    Q.qProcess.Add(Q.qProcess[0]);
+                                    Q.qProcess.RemoveAt(0);
+                                    return flag;
+                                }
+                                else if (Q.qProcess[0].getRemainingTime() <= execTime)
+                                {
+                                    time += Q.qProcess[0].getRemainingTime();
+                                    Q.qProcess[0].setRemainingTime(Q.qProcess[0].getRemainingTime());
+                                    Console.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
+                                    Q.qProcess[0].isFinished = true;
+                                    Q.qProcess[0].completionTime = time;
+                                    Q.qProcess[0].turnAroundTime = time - Q.qProcess[0].getArrivalTime();
+
+                                    //Waiting Time: 
+                                    Q.qProcess[0].setWaitingTime(time - Q.qProcess[0].getBurstTime() - Q.qProcess[0].getArrivalTime());
+                                    seq += "->" + Q.qProcess[0].getName();
+                                    Q.qProcess.RemoveAt(0);
+                                    return flag;
+                                }
+                            }
+                        }
+                    }
+                }
+                //if no premption is necessary
+                if (Q.qProcess[0].getRemainingTime() > tQ)
+                {
+                    time += tQ;
+                    Q.qProcess[0].setRemainingTime(tQ);
+                    Q.qProcess.Add(Q.qProcess[0]);
+                    seq += "->" + Q.qProcess[0].getName();
+                    Q.qProcess.RemoveAt(0);
+                    //return flag;
+
+                }
+                else if (Q.qProcess[0].getRemainingTime() <= tQ)
+                {
+                    time += Q.qProcess[0].getRemainingTime();
+                    Q.qProcess[0].setRemainingTime(Q.qProcess[0].getRemainingTime());
+                    Console.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
+                    Q.qProcess[0].isFinished = true;
+                    Q.qProcess[0].completionTime = time;
+                    Q.qProcess[0].turnAroundTime = time - Q.qProcess[0].getArrivalTime();
+
+                    //Waiting Time: 
+                    Q.qProcess[0].setWaitingTime(time - Q.qProcess[0].getBurstTime() - Q.qProcess[0].getArrivalTime());
+                    seq += "->" + Q.qProcess[0].getName();
+                    Q.qProcess.RemoveAt(0);
+                }
+                else
+                {
+                    //return !flag;
+                }
+
+
+
+                Q.qProcess.ForEach(delegate (Process p)
+                {
+                    p.print();
+                });
+
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+            }
+
+            return flag;
         }
-        else
+
+        public static float AverageTAT(List<Process> pro)
         {
+            float averageTAT = 0;
 
-            // for last time 
-            time += p.getRemainingTime();
+            pro.ForEach(delegate (Process p)
+            {
+                averageTAT += p.turnAroundTime;
+            });
 
-            // store comp time 
-            //comp[i] = time - a[i];
-
-            // store wait time 
-            p.setWaitingTime(time - p.getBurstTime() - p.getArrivalTime());
-            p.setRemainingTime(p.getRemainingTime());
-            p.isFinished = true;
-            Console.WriteLine("Completed: " + p.getName() + " @: " + time);
-
-            // add sequence 
-            seq += "->" + p.getName();
+            averageTAT /= pro.Count;
+            return averageTAT;
         }
+
+        public static float AverageWaitingTime(List<Process> pro)
+        {
+            float averageWT = 0;
+            pro.ForEach(delegate (Process p)
+            {
+                averageWT += p.getWaitingTime();
+            });
+
+            averageWT /= pro.Count;
+            return averageWT;
+        }
+
     }
 }
