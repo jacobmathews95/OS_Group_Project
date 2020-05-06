@@ -30,7 +30,7 @@ namespace testapp1
             tbl2.DataMember = "MLQ"; // table name you need to show
 
             mlqAlgo = new MultiLevelQueue();
-            for (int i = 0; i < tMLQ.Rows.Count - 1; i++) //Should it be until count
+            for (int i = 0; i < tMLQ.Rows.Count; i++) //Should it be until count
                 mlqAlgo.Processes.Add(new Process(tMLQ.Rows[i].Field<string>(0), tMLQ.Rows[i].Field<int>(2), tMLQ.Rows[i].Field<int>(1), tMLQ.Rows[i].Field<int>(3)));
       
             mlqAlgo.Processes.ForEach(delegate (Process p)
@@ -214,9 +214,13 @@ namespace testapp1
         }
 
 
-        public void UpdateMLQUI(int currentTime, string q1ProcessesWaiting)
+        public void UpdateMLQUI(int currentTime, string currentProcess, string q1ProcessesWaiting, string q2ProcessesWaiting, string finishedProcesses)
         {
             lblMLCTVal.Text = currentTime.ToString();
+            lblMLCPVal.Text = currentProcess;
+            lblMLWP1Val.Text = q1ProcessesWaiting;
+            lblMLWP2Val.Text = q2ProcessesWaiting;
+            lblMLFPVal.Text = finishedProcesses;
         }
 
     }

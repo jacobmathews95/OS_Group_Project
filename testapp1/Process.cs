@@ -107,7 +107,16 @@ namespace testapp1
         public int timeQuantum { get; set; }
 
         public bool IsActive { get; set; }
-        public string QueueString { get; }
+        public string QueueString { get
+            {
+                string qList = "";
+                qProcess.ForEach(delegate (Process p)
+                {
+                    qList += p.getName() + " ";
+                });
+                return qList;
+
+            } }
           //  get {
             //loop the queueu to display to user
             //} 
@@ -186,6 +195,21 @@ namespace testapp1
 
         //Low Priority Q with time qunatum 4
         public Queue readyQ2;
+
+        public string FinishProcess
+        {
+            get
+            {
+                string finished = "";
+                Processes.ForEach(delegate (Process p)
+                {
+                    if (p.isFinished)
+                        finished += p.getName() + " ";
+                });
+
+                return finished;
+            }
+        }
 
 
         public void MultiLevelQ(MainForm mainForm, List<Process> processes, ref string seq, int timeQuantum1 = 3, int timeQuantum2 = 4)
@@ -272,13 +296,14 @@ namespace testapp1
                 if (!readyQ.isEmpty())
                 {
                     //HP Q not to worry about premption.
-                    flag = ScheduleTask(readyQ, readyQ.timeQuantum, ref time, ref seq);
+                    flag = ScheduleTask(_MainForm, readyQ, readyQ.timeQuantum, ref time, ref seq, readyQ2);
+                    //ScheduleTask2(_MainForm, readyQ, readyQ.timeQuantum, ref time, ref seq, processes ,readyQ2, false);
                 }
                 //HP (high priority) Q is empty, we execute LP Q
                 else if (readyQ.isEmpty() && !readyQ2.isEmpty())
                 {
                     //Have o take care of premption.
-                    flag = ScheduleTask2(readyQ2, readyQ2.timeQuantum, ref time, ref seq, processes, readyQ);
+                    flag = ScheduleTask2(_MainForm, readyQ2, readyQ2.timeQuantum, ref time, ref seq, processes, readyQ, true);
                 }
                 //We only exit if all the tasks are done, taking care of instances when the Q is empty
                 else
@@ -317,7 +342,7 @@ namespace testapp1
         }
 
         //HP schedule
-        public bool ScheduleTask(MainForm mainForm, Queue Q, int tQ, ref int time, ref string seq)
+        public bool ScheduleTask(MainForm mainForm, Queue Q, int tQ, ref int time, ref string seq, Queue Q2)
         {
             bool flag = true;
             //checking if the process is still not finished
@@ -330,7 +355,7 @@ namespace testapp1
                 if (Q.qProcess[0].getRemainingTime() > tQ)
                 {
                     time += tQ;
-                    mainForm.UpdateMLQUI(time, Q.QueueString());
+                    mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(),Q.QueueString, Q2.QueueString, FinishProcess );
                     Q.qProcess[0].setRemainingTime(tQ);
                     Q.qProcess.Add(Q.qProcess[0]);
                     seq += "->" + Q.qProcess[0].getName();
@@ -342,6 +367,7 @@ namespace testapp1
                 else if (Q.qProcess[0].getRemainingTime() <= tQ)
                 {
                     time += Q.qProcess[0].getRemainingTime();
+                    mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q.QueueString, Q2.QueueString, FinishProcess);
                     Q.qProcess[0].setRemainingTime(Q.qProcess[0].getRemainingTime());
                     Debug.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
                     Q.qProcess[0].isFinished = true;
@@ -374,42 +400,45 @@ namespace testapp1
         }
 
         //For LP Q
-        public bool ScheduleTask2(MainForm mainForm, Queue Q, int tQ, ref int time, ref string seq, List<Process> refProcesses, Queue Q1)
+        public bool ScheduleTask2(MainForm mainForm, Queue Q, int tQ, ref int time, ref string seq, List<Process> refProcesses, Queue Q1, bool prempt = false)
         {
             bool flag = true;
 
 
             //for (int i = 0; i < Q.qProcess.Count; i++)
             //{
-
-            if (Q.qProcess[0].getRemainingTime() > 0)
+            if (prempt)
             {
-                flag = false;
-
-                #region Handle Higher Priority Queue Items
-                //Checking to see if the process needs to be prempted.
-                for (int i = 0; i < refProcesses.Count; i++)
+                if (Q.qProcess[0].getRemainingTime() > 0)
                 {
-                    if (refProcesses[i].getPriority() == 1 && !Q1.qProcess.Contains(refProcesses[i]))
+                    flag = false;
+
+                    #region Handle Higher Priority Queue Items
+                    //Checking to see if the process needs to be prempted.
+                    for (int i = 0; i < refProcesses.Count; i++)
                     {
-                        if (!refProcesses[i].isFinished)
+                        if (refProcesses[i].getPriority() == 1 && !Q1.qProcess.Contains(refProcesses[i]) && !refProcesses[i].isFinished)
                         {
                             int execTime = refProcesses[i].getArrivalTime() - time;
                             if (execTime < tQ)
                             {
                                 Debug.WriteLine("Found Process that is not in Q1 and could come in  " + execTime);
 
+
+                                //return CompleteTask(mainForm, Q, execTime, ref seq, Q1);
                                 if (Q.qProcess[0].getRemainingTime() > execTime)
                                 {
                                     time += execTime;
+                                    mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q.QueueString, Q1.QueueString, FinishProcess);
                                     Q.qProcess[0].setRemainingTime(execTime);
                                     Q.qProcess.Add(Q.qProcess[0]);
-                                    Q.qProcess.RemoveAt(0);
-                                    return flag;
+                                    //Q.qProcess.RemoveAt(0);
+                                    //return flag;
                                 }
                                 else if (Q.qProcess[0].getRemainingTime() <= execTime)
                                 {
                                     time += Q.qProcess[0].getRemainingTime();
+                                    mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q1.QueueString, Q.QueueString, FinishProcess);
                                     Q.qProcess[0].setRemainingTime(Q.qProcess[0].getRemainingTime());
                                     Debug.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
                                     Q.qProcess[0].isFinished = true;
@@ -418,60 +447,71 @@ namespace testapp1
 
                                     //Waiting Time: 
                                     Q.qProcess[0].setWaitingTime(time - Q.qProcess[0].getBurstTime() - Q.qProcess[0].getArrivalTime());
-                                    seq += "->" + Q.qProcess[0].getName();
-                                    Q.qProcess.RemoveAt(0);
-                                    return flag;
+
                                 }
+                                //mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q.QueueString, Q1.QueueString, FinishProcess);
+                                seq += "->" + Q.qProcess[0].getName();
+                                Q.qProcess.RemoveAt(0);
+                                return flag;
                             }
                         }
                     }
                 }
-                #endregion
-
-                //if no premption is necessary
-                if (Q.qProcess[0].getRemainingTime() > tQ)
-                {
-                    time += tQ;
-                    Q.qProcess[0].setRemainingTime(tQ);
-                    Q.qProcess.Add(Q.qProcess[0]);
-                    seq += "->" + Q.qProcess[0].getName();
-                    Q.qProcess.RemoveAt(0);
-                    //return flag;
-
-                }
-                else if (Q.qProcess[0].getRemainingTime() <= tQ)
-                {
-                    time += Q.qProcess[0].getRemainingTime();
-                    Q.qProcess[0].setRemainingTime(Q.qProcess[0].getRemainingTime());
-                    Debug.WriteLine("Done with : " + Q.qProcess[0].getName() + " " + time);
-                    Q.qProcess[0].isFinished = true;
-                    Q.qProcess[0].completionTime = time;
-                    Q.qProcess[0].turnAroundTime = time - Q.qProcess[0].getArrivalTime();
-
-                    //Waiting Time: 
-                    Q.qProcess[0].setWaitingTime(time - Q.qProcess[0].getBurstTime() - Q.qProcess[0].getArrivalTime());
-                    seq += "->" + Q.qProcess[0].getName();
-                    Q.qProcess.RemoveAt(0);
-                }
-                else
-                {
-                    //return !flag;
-                }
-
-
-
-                Q.qProcess.ForEach(delegate (Process p)
-                {
-                    p.print();
-                });
-
-                Debug.WriteLine("");
-                Debug.WriteLine("");
-                Debug.WriteLine("");
-                Debug.WriteLine("");
             }
+            #endregion
+
+            //if no premption is necessary
+            ScheduleTask(mainForm, Q, tQ, ref time, ref seq, Q1);
+
+            Q.qProcess.ForEach(delegate (Process p)
+            {
+                p.print();
+            });
+
+            Debug.WriteLine("");
+            Debug.WriteLine("");
+            Debug.WriteLine("");
+            Debug.WriteLine("");
+
 
             return flag;
+        }
+
+        public bool CompleteTask(MainForm mainForm, Queue Q, int execTime, ref string seq, Queue Q1)
+        {
+            bool flag = true;
+            if (Q.qProcess[0].getRemainingTime() > execTime)
+            {
+                flag = false;
+                time += execTime;
+                mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q.QueueString, Q1.QueueString, FinishProcess);
+                Q.qProcess[0].setRemainingTime(execTime);
+                Q.qProcess.Add(Q.qProcess[0]);
+                Q.qProcess.RemoveAt(0);
+                return flag;
+            }
+            else if (Q.qProcess[0].getRemainingTime() <= execTime)
+            {
+                flag = false;
+                time += Q.qProcess[0].getRemainingTime();
+                mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q1.QueueString, Q.QueueString, FinishProcess);
+                Q.qProcess[0].setRemainingTime(Q.qProcess[0].getRemainingTime());
+                Debug.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
+                Q.qProcess[0].isFinished = true;
+                Q.qProcess[0].completionTime = time;
+                Q.qProcess[0].turnAroundTime = time - Q.qProcess[0].getArrivalTime();
+
+                //Waiting Time: 
+                Q.qProcess[0].setWaitingTime(time - Q.qProcess[0].getBurstTime() - Q.qProcess[0].getArrivalTime());
+                seq += "->" + Q.qProcess[0].getName();
+                Q.qProcess.RemoveAt(0);
+                return flag;
+            }
+            //mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q.QueueString, Q1.QueueString, FinishProcess);
+            //seq += "->" + Q.qProcess[0].getName();
+            //Q.qProcess.RemoveAt(0);
+            return flag;
+
         }
 
         public float AverageTAT(List<Process> pro)
