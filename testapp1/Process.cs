@@ -423,7 +423,8 @@ namespace testapp1
                             if (execTime < tQ)
                             {
                                 Debug.WriteLine("Found Process that is not in Q1 and could come in  " + execTime);
-
+                                //TODO: can also do this.
+                                //return ScheduleTask(mainForm, Q, execTime, ref time, ref seq, Q1);
 
                                 //return CompleteTask(mainForm, Q, execTime, ref seq, Q1);
                                 if (Q.qProcess[0].getRemainingTime() > execTime)
