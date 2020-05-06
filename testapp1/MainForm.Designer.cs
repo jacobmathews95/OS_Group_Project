@@ -62,10 +62,10 @@
             this.button2 = new System.Windows.Forms.Button();
             this.rrGantt = new System.Windows.Forms.TabPage();
             this.mlqGantt = new System.Windows.Forms.TabPage();
-            this.lblTQ = new System.Windows.Forms.Label();
-            this.lblTQVal = new System.Windows.Forms.Label();
             this.btnMinus = new System.Windows.Forms.Button();
+            this.lblTQVal = new System.Windows.Forms.Label();
             this.btnPlus = new System.Windows.Forms.Button();
+            this.lblTQ = new System.Windows.Forms.Label();
             this.tabMain.SuspendLayout();
             this.rr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbl1)).BeginInit();
@@ -88,6 +88,10 @@
             // 
             // rr
             // 
+            this.rr.Controls.Add(this.btnMinus);
+            this.rr.Controls.Add(this.lblTQVal);
+            this.rr.Controls.Add(this.btnPlus);
+            this.rr.Controls.Add(this.lblTQ);
             this.rr.Controls.Add(this.tbl1);
             this.rr.Controls.Add(this.lblRRFPVal);
             this.rr.Controls.Add(this.lblRRFP);
@@ -423,51 +427,47 @@
             this.mlqGantt.Text = "Multilevel Queue Gantt Chart";
             this.mlqGantt.UseVisualStyleBackColor = true;
             // 
-            // lblTQ
+            // btnMinus
             // 
-            this.lblTQ.AutoSize = true;
-            this.lblTQ.Location = new System.Drawing.Point(13, 13);
-            this.lblTQ.Name = "lblTQ";
-            this.lblTQ.Size = new System.Drawing.Size(119, 13);
-            this.lblTQ.TabIndex = 1;
-            this.lblTQ.Text = "Current Time Quantum: ";
+            this.btnMinus.Location = new System.Drawing.Point(245, 328);
+            this.btnMinus.Name = "btnMinus";
+            this.btnMinus.Size = new System.Drawing.Size(46, 23);
+            this.btnMinus.TabIndex = 28;
+            this.btnMinus.Text = " - ";
+            this.btnMinus.UseVisualStyleBackColor = true;
             // 
             // lblTQVal
             // 
             this.lblTQVal.AutoSize = true;
-            this.lblTQVal.Location = new System.Drawing.Point(128, 13);
+            this.lblTQVal.Location = new System.Drawing.Point(134, 333);
             this.lblTQVal.Name = "lblTQVal";
             this.lblTQVal.Size = new System.Drawing.Size(40, 13);
-            this.lblTQVal.TabIndex = 2;
+            this.lblTQVal.TabIndex = 26;
             this.lblTQVal.Text = "[Value]";
-            // 
-            // btnMinus
-            // 
-            this.btnMinus.Location = new System.Drawing.Point(239, 8);
-            this.btnMinus.Name = "btnMinus";
-            this.btnMinus.Size = new System.Drawing.Size(46, 23);
-            this.btnMinus.TabIndex = 4;
-            this.btnMinus.Text = " - ";
-            this.btnMinus.UseVisualStyleBackColor = true;
             // 
             // btnPlus
             // 
-            this.btnPlus.Location = new System.Drawing.Point(187, 8);
+            this.btnPlus.Location = new System.Drawing.Point(193, 328);
             this.btnPlus.Name = "btnPlus";
             this.btnPlus.Size = new System.Drawing.Size(46, 23);
-            this.btnPlus.TabIndex = 3;
+            this.btnPlus.TabIndex = 27;
             this.btnPlus.Text = " + ";
             this.btnPlus.UseVisualStyleBackColor = true;
+            // 
+            // lblTQ
+            // 
+            this.lblTQ.AutoSize = true;
+            this.lblTQ.Location = new System.Drawing.Point(19, 333);
+            this.lblTQ.Name = "lblTQ";
+            this.lblTQ.Size = new System.Drawing.Size(119, 13);
+            this.lblTQ.TabIndex = 25;
+            this.lblTQ.Text = "Current Time Quantum: ";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnMinus);
-            this.Controls.Add(this.lblTQVal);
-            this.Controls.Add(this.btnPlus);
-            this.Controls.Add(this.lblTQ);
             this.Controls.Add(this.tabMain);
             this.Name = "MainForm";
             this.Text = "MainForm";
@@ -480,7 +480,6 @@
             this.mlq.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbl2)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -491,10 +490,6 @@
         private System.Windows.Forms.TabPage mlq;
         private System.Windows.Forms.Button btnCalc;
         private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.Label lblTQ;
-        private System.Windows.Forms.Label lblTQVal;
-        private System.Windows.Forms.Button btnMinus;
-        private System.Windows.Forms.Button btnPlus;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label lblMLCTVal;
@@ -524,5 +519,9 @@
         private System.Windows.Forms.Label lblMLWP2;
         private System.Windows.Forms.TabPage rrGantt;
         private System.Windows.Forms.TabPage mlqGantt;
+        private System.Windows.Forms.Button btnMinus;
+        private System.Windows.Forms.Label lblTQVal;
+        private System.Windows.Forms.Button btnPlus;
+        private System.Windows.Forms.Label lblTQ;
     }
 }

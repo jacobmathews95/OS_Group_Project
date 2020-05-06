@@ -184,11 +184,13 @@ namespace testapp1
 
         private void button2_Click(object sender, EventArgs e)
         {
+            //onclick for MLQ
+
 
             //idle.print();
             String seq = "";
 
-            mlqAlgo.MultiLevelQ(mlqAlgo.Processes, ref seq);
+            mlqAlgo.MultiLevelQ(this, mlqAlgo.Processes, ref seq);
 
 
             //RoundRobinA(q1);
@@ -210,5 +212,12 @@ namespace testapp1
 
 
         }
+
+
+        public void UpdateMLQUI(int currentTime, string q1ProcessesWaiting)
+        {
+            lblMLCTVal.Text = currentTime.ToString();
+        }
+
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace testapp1
 {
@@ -106,6 +107,10 @@ namespace testapp1
         public int timeQuantum { get; set; }
 
         public bool IsActive { get; set; }
+        public string QueueString { get; }
+          //  get {
+            //loop the queueu to display to user
+            //} 
 
         public Queue()
         {
@@ -148,8 +153,11 @@ namespace testapp1
     public class MultiLevelQueue
     {
         //List of processes can be done dynamically if needed
-        
+
+        private MainForm _MainForm;
+
         private List<Process> _processes;
+        private List<Int64> _gantt;
 
         public List<Process> Processes
         {
@@ -161,58 +169,35 @@ namespace testapp1
             }
         }
 
-
-        void ForReference(string[] args)
+        public List<Int64> Gantt
         {
-
-            /*
-
-            Processes.Add(new Process("p1", 1, 12, 0));
-            processes.Add(new Process("p2", 2, 8, 4));
-            processes.Add(new Process("p3", 1, 6, 5));
-            processes.Add(new Process("p4", 2, 5, 12));
-            processes.Add(new Process("p5", 2, 10, 18));
-
-
-            processes.ForEach(delegate (Process p)
+            get
             {
-                p.print();
-            });
-            //Process idle = new Process("p_idle", 999, 99999, 0);
-
-            //idle.print();
-            String seq = "";
-
-            MultiLevelQ(processes, ref seq);
-
-
-            //RoundRobinA(q1);
-            //Average TAT
-
-            processes.ForEach(delegate (Process p)
-            {
-                p.print();
-
-                //Console.WriteLine(p.getName() + " " + p.completionTime + "  " + p.turnAroundTime);
-                //tat += p.turnAroundTime;
-            });
-
-
-            Console.WriteLine("AVG: TAT          = " + AverageTAT(processes));
-            Console.WriteLine("AVG: Waiting Time = " + AverageWaitingTime(processes));
-
-            Console.WriteLine(seq);
-            */
+                if (_gantt == null)
+                    _gantt = new List<Int64>();
+                return _gantt;
+            }
         }
 
-        public void MultiLevelQ(List<Process> processes, ref string seq, int timeQuantum1 = 3, int timeQuantum2 = 4)
+        public int time = 0;
+        
+        //High Priority Q with time quantum 3
+        public Queue readyQ;
+
+        //Low Priority Q with time qunatum 4
+        public Queue readyQ2;
+
+
+        public void MultiLevelQ(MainForm mainForm, List<Process> processes, ref string seq, int timeQuantum1 = 3, int timeQuantum2 = 4)
         {
-            int time = 0;
+            _MainForm = mainForm;
+
             //High Priority Q with time quantum 3
-            Queue readyQ = new Queue(timeQuantum1);
+            readyQ = new Queue(timeQuantum1);
 
             //Low Priority Q with time qunatum 4
-            Queue readyQ2 = new Queue(timeQuantum2);
+            readyQ2 = new Queue(timeQuantum2);
+
 
             //Running alorithm
             while (true)
@@ -332,7 +317,7 @@ namespace testapp1
         }
 
         //HP schedule
-        public bool ScheduleTask(Queue Q, int tQ, ref int time, ref string seq)
+        public bool ScheduleTask(MainForm mainForm, Queue Q, int tQ, ref int time, ref string seq)
         {
             bool flag = true;
             //checking if the process is still not finished
@@ -345,6 +330,7 @@ namespace testapp1
                 if (Q.qProcess[0].getRemainingTime() > tQ)
                 {
                     time += tQ;
+                    mainForm.UpdateMLQUI(time, Q.QueueString());
                     Q.qProcess[0].setRemainingTime(tQ);
                     Q.qProcess.Add(Q.qProcess[0]);
                     seq += "->" + Q.qProcess[0].getName();
@@ -388,7 +374,7 @@ namespace testapp1
         }
 
         //For LP Q
-        public bool ScheduleTask2(Queue Q, int tQ, ref int time, ref string seq, List<Process> refProcesses, Queue Q1)
+        public bool ScheduleTask2(MainForm mainForm, Queue Q, int tQ, ref int time, ref string seq, List<Process> refProcesses, Queue Q1)
         {
             bool flag = true;
 
@@ -399,6 +385,8 @@ namespace testapp1
             if (Q.qProcess[0].getRemainingTime() > 0)
             {
                 flag = false;
+
+                #region Handle Higher Priority Queue Items
                 //Checking to see if the process needs to be prempted.
                 for (int i = 0; i < refProcesses.Count; i++)
                 {
@@ -438,6 +426,8 @@ namespace testapp1
                         }
                     }
                 }
+                #endregion
+
                 //if no premption is necessary
                 if (Q.qProcess[0].getRemainingTime() > tQ)
                 {
@@ -453,7 +443,7 @@ namespace testapp1
                 {
                     time += Q.qProcess[0].getRemainingTime();
                     Q.qProcess[0].setRemainingTime(Q.qProcess[0].getRemainingTime());
-                    Debug.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
+                    Debug.WriteLine("Done with : " + Q.qProcess[0].getName() + " " + time);
                     Q.qProcess[0].isFinished = true;
                     Q.qProcess[0].completionTime = time;
                     Q.qProcess[0].turnAroundTime = time - Q.qProcess[0].getArrivalTime();
