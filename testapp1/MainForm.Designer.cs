@@ -30,6 +30,8 @@
         {
             this.tabMain = new System.Windows.Forms.TabControl();
             this.rr = new System.Windows.Forms.TabPage();
+            this.tbl1 = new System.Windows.Forms.DataGridView();
+            this.dsInputs = new System.Data.DataSet();
             this.lblRRFPVal = new System.Windows.Forms.Label();
             this.lblRRFP = new System.Windows.Forms.Label();
             this.lblRRWPVal = new System.Windows.Forms.Label();
@@ -43,6 +45,9 @@
             this.btnReset = new System.Windows.Forms.Button();
             this.btnCalc = new System.Windows.Forms.Button();
             this.mlq = new System.Windows.Forms.TabPage();
+            this.lblMLWP2Val = new System.Windows.Forms.Label();
+            this.lblMLWP2 = new System.Windows.Forms.Label();
+            this.tbl2 = new System.Windows.Forms.DataGridView();
             this.lblMLFPVal = new System.Windows.Forms.Label();
             this.lblMLFP = new System.Windows.Forms.Label();
             this.lblMLWP1Val = new System.Windows.Forms.Label();
@@ -55,22 +60,17 @@
             this.lblMLCT = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.rrGantt = new System.Windows.Forms.TabPage();
+            this.mlqGantt = new System.Windows.Forms.TabPage();
             this.lblTQ = new System.Windows.Forms.Label();
             this.lblTQVal = new System.Windows.Forms.Label();
             this.btnMinus = new System.Windows.Forms.Button();
             this.btnPlus = new System.Windows.Forms.Button();
-            this.dsInputs = new System.Data.DataSet();
-            this.tbl1 = new System.Windows.Forms.DataGridView();
-            this.tbl2 = new System.Windows.Forms.DataGridView();
-            this.lblMLWP2Val = new System.Windows.Forms.Label();
-            this.lblMLWP2 = new System.Windows.Forms.Label();
-            this.rrGantt = new System.Windows.Forms.TabPage();
-            this.mlqGantt = new System.Windows.Forms.TabPage();
             this.tabMain.SuspendLayout();
             this.rr.SuspendLayout();
-            this.mlq.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dsInputs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dsInputs)).BeginInit();
+            this.mlq.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbl2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -109,6 +109,23 @@
             this.rr.Text = "Round Robin";
             this.rr.UseVisualStyleBackColor = true;
             this.rr.Click += new System.EventHandler(this.rr_Click);
+            // 
+            // tbl1
+            // 
+            this.tbl1.AutoGenerateColumns = false;
+            this.tbl1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tbl1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbl1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tbl1.DataSource = this.dsInputs;
+            this.tbl1.GridColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tbl1.Location = new System.Drawing.Point(5, 3);
+            this.tbl1.Name = "tbl1";
+            this.tbl1.Size = new System.Drawing.Size(757, 150);
+            this.tbl1.TabIndex = 24;
+            // 
+            // dsInputs
+            // 
+            this.dsInputs.DataSetName = "NewDataSet";
             // 
             // lblRRFPVal
             // 
@@ -243,6 +260,37 @@
             this.mlq.Text = "Multilevel Queue";
             this.mlq.UseVisualStyleBackColor = true;
             // 
+            // lblMLWP2Val
+            // 
+            this.lblMLWP2Val.AutoSize = true;
+            this.lblMLWP2Val.Location = new System.Drawing.Point(188, 300);
+            this.lblMLWP2Val.Name = "lblMLWP2Val";
+            this.lblMLWP2Val.Size = new System.Drawing.Size(39, 13);
+            this.lblMLWP2Val.TabIndex = 27;
+            this.lblMLWP2Val.Text = "[value]";
+            // 
+            // lblMLWP2
+            // 
+            this.lblMLWP2.AutoSize = true;
+            this.lblMLWP2.Location = new System.Drawing.Point(81, 300);
+            this.lblMLWP2.Name = "lblMLWP2";
+            this.lblMLWP2.Size = new System.Drawing.Size(93, 13);
+            this.lblMLWP2.TabIndex = 26;
+            this.lblMLWP2.Text = "Queue 2 Waiting: ";
+            // 
+            // tbl2
+            // 
+            this.tbl2.AutoGenerateColumns = false;
+            this.tbl2.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tbl2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbl2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tbl2.DataSource = this.dsInputs;
+            this.tbl2.GridColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tbl2.Location = new System.Drawing.Point(6, 0);
+            this.tbl2.Name = "tbl2";
+            this.tbl2.Size = new System.Drawing.Size(757, 150);
+            this.tbl2.TabIndex = 25;
+            // 
             // lblMLFPVal
             // 
             this.lblMLFPVal.AutoSize = true;
@@ -353,6 +401,27 @@
             this.button2.TabIndex = 4;
             this.button2.Text = "Calculate";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // rrGantt
+            // 
+            this.rrGantt.Location = new System.Drawing.Point(4, 22);
+            this.rrGantt.Name = "rrGantt";
+            this.rrGantt.Padding = new System.Windows.Forms.Padding(3);
+            this.rrGantt.Size = new System.Drawing.Size(768, 366);
+            this.rrGantt.TabIndex = 2;
+            this.rrGantt.Text = "Round Robin Gantt Chart";
+            this.rrGantt.UseVisualStyleBackColor = true;
+            // 
+            // mlqGantt
+            // 
+            this.mlqGantt.Location = new System.Drawing.Point(4, 22);
+            this.mlqGantt.Name = "mlqGantt";
+            this.mlqGantt.Padding = new System.Windows.Forms.Padding(3);
+            this.mlqGantt.Size = new System.Drawing.Size(768, 366);
+            this.mlqGantt.TabIndex = 3;
+            this.mlqGantt.Text = "Multilevel Queue Gantt Chart";
+            this.mlqGantt.UseVisualStyleBackColor = true;
             // 
             // lblTQ
             // 
@@ -390,74 +459,6 @@
             this.btnPlus.Text = " + ";
             this.btnPlus.UseVisualStyleBackColor = true;
             // 
-            // dsInputs
-            // 
-            this.dsInputs.DataSetName = "NewDataSet";
-            // 
-            // tbl1
-            // 
-            this.tbl1.AutoGenerateColumns = false;
-            this.tbl1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tbl1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbl1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tbl1.DataSource = this.dsInputs;
-            this.tbl1.GridColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tbl1.Location = new System.Drawing.Point(5, 3);
-            this.tbl1.Name = "tbl1";
-            this.tbl1.Size = new System.Drawing.Size(757, 150);
-            this.tbl1.TabIndex = 24;
-            // 
-            // tbl2
-            // 
-            this.tbl2.AutoGenerateColumns = false;
-            this.tbl2.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tbl2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbl2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tbl2.DataSource = this.dsInputs;
-            this.tbl2.GridColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tbl2.Location = new System.Drawing.Point(6, 0);
-            this.tbl2.Name = "tbl2";
-            this.tbl2.Size = new System.Drawing.Size(757, 150);
-            this.tbl2.TabIndex = 25;
-            // 
-            // lblMLWP2Val
-            // 
-            this.lblMLWP2Val.AutoSize = true;
-            this.lblMLWP2Val.Location = new System.Drawing.Point(188, 300);
-            this.lblMLWP2Val.Name = "lblMLWP2Val";
-            this.lblMLWP2Val.Size = new System.Drawing.Size(39, 13);
-            this.lblMLWP2Val.TabIndex = 27;
-            this.lblMLWP2Val.Text = "[value]";
-            // 
-            // lblMLWP2
-            // 
-            this.lblMLWP2.AutoSize = true;
-            this.lblMLWP2.Location = new System.Drawing.Point(81, 300);
-            this.lblMLWP2.Name = "lblMLWP2";
-            this.lblMLWP2.Size = new System.Drawing.Size(93, 13);
-            this.lblMLWP2.TabIndex = 26;
-            this.lblMLWP2.Text = "Queue 2 Waiting: ";
-            // 
-            // rrGantt
-            // 
-            this.rrGantt.Location = new System.Drawing.Point(4, 22);
-            this.rrGantt.Name = "rrGantt";
-            this.rrGantt.Padding = new System.Windows.Forms.Padding(3);
-            this.rrGantt.Size = new System.Drawing.Size(768, 366);
-            this.rrGantt.TabIndex = 2;
-            this.rrGantt.Text = "Round Robin Gantt Chart";
-            this.rrGantt.UseVisualStyleBackColor = true;
-            // 
-            // mlqGantt
-            // 
-            this.mlqGantt.Location = new System.Drawing.Point(4, 22);
-            this.mlqGantt.Name = "mlqGantt";
-            this.mlqGantt.Padding = new System.Windows.Forms.Padding(3);
-            this.mlqGantt.Size = new System.Drawing.Size(768, 366);
-            this.mlqGantt.TabIndex = 3;
-            this.mlqGantt.Text = "Multilevel Queue Gantt Chart";
-            this.mlqGantt.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -473,10 +474,10 @@
             this.tabMain.ResumeLayout(false);
             this.rr.ResumeLayout(false);
             this.rr.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dsInputs)).EndInit();
             this.mlq.ResumeLayout(false);
             this.mlq.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dsInputs)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbl2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

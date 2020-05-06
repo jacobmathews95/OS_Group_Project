@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace testapp1
 {
@@ -84,7 +85,7 @@ namespace testapp1
         //Displaying Output for console
         public void print()
         {
-            Console.WriteLine(String.Format("{0,-6} | {1, 15}: {2,-5} | {3,15}: {4,-5} | {5,15}: {6,-5} | {7,15}: {8,-5} | {9,15}: {10, -5}",
+            Debug.WriteLine(String.Format("{0,-6} | {1, 15}: {2,-5} | {3,15}: {4,-5} | {5,15}: {6,-5} | {7,15}: {8,-5} | {9,15}: {10, -5}",
                 $"{name}",
                 "arrivalTime", $"{arrivalTime}",
                 "priority:", $"{priority}",
@@ -144,15 +145,29 @@ namespace testapp1
         //May be add isEmpty, Priority...
     }
 
-
-    class Program
+    public class MultiLevelQueue
     {
-        static void ForReference(string[] args)
-        {
-            //List of processes can be done dynamically if needed
-            List<Process> processes = new List<Process>();
+        //List of processes can be done dynamically if needed
+        
+        private List<Process> _processes;
 
-            processes.Add(new Process("p1", 1, 12, 0));
+        public List<Process> Processes
+        {
+            get
+            {
+                if (_processes == null)
+                    _processes = new List<Process>();
+                return _processes;
+            }
+        }
+
+
+        void ForReference(string[] args)
+        {
+
+            /*
+
+            Processes.Add(new Process("p1", 1, 12, 0));
             processes.Add(new Process("p2", 2, 8, 4));
             processes.Add(new Process("p3", 1, 6, 5));
             processes.Add(new Process("p4", 2, 5, 12));
@@ -187,17 +202,17 @@ namespace testapp1
             Console.WriteLine("AVG: Waiting Time = " + AverageWaitingTime(processes));
 
             Console.WriteLine(seq);
-
+            */
         }
 
-        public static void MultiLevelQ(List<Process> processes, ref string seq)
+        public void MultiLevelQ(List<Process> processes, ref string seq, int timeQuantum1 = 3, int timeQuantum2 = 4)
         {
             int time = 0;
             //High Priority Q with time quantum 3
-            Queue readyQ = new Queue(3);
+            Queue readyQ = new Queue(timeQuantum1);
 
             //Low Priority Q with time qunatum 4
-            Queue readyQ2 = new Queue(4);
+            Queue readyQ2 = new Queue(timeQuantum2);
 
             //Running alorithm
             while (true)
@@ -238,7 +253,7 @@ namespace testapp1
                                     readyQ.qProcess.Insert(0, p);
 
                                 }
-                                Console.WriteLine("Added: " + p.getName() + " @ " + time);
+                                Debug.WriteLine("Added: " + p.getName() + " @ " + time);
                             }
                         }
                         //Same for Low priority Q
@@ -262,7 +277,7 @@ namespace testapp1
                                     readyQ2.qProcess.Insert(0, p);
                                 }
 
-                                Console.WriteLine("Added: " + p.getName() + " @2 " + time);
+                                Debug.WriteLine("Added: " + p.getName() + " @2 " + time);
                             }
                         }
                     }
@@ -307,7 +322,7 @@ namespace testapp1
                     {
                         flag = true;
                         break;
-                        Console.WriteLine("DOne");
+                        Debug.WriteLine("DOne");
                     }
                 }
 
@@ -317,7 +332,7 @@ namespace testapp1
         }
 
         //HP schedule
-        public static bool ScheduleTask(Queue Q, int tQ, ref int time, ref string seq)
+        public bool ScheduleTask(Queue Q, int tQ, ref int time, ref string seq)
         {
             bool flag = true;
             //checking if the process is still not finished
@@ -342,7 +357,7 @@ namespace testapp1
                 {
                     time += Q.qProcess[0].getRemainingTime();
                     Q.qProcess[0].setRemainingTime(Q.qProcess[0].getRemainingTime());
-                    Console.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
+                    Debug.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
                     Q.qProcess[0].isFinished = true;
                     Q.qProcess[0].completionTime = time;
                     Q.qProcess[0].turnAroundTime = time - Q.qProcess[0].getArrivalTime();
@@ -364,16 +379,16 @@ namespace testapp1
                 p.print();
             });
 
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
+            Debug.WriteLine("");
+            Debug.WriteLine("");
+            Debug.WriteLine("");
+            Debug.WriteLine("");
 
             return flag;
         }
 
         //For LP Q
-        public static bool ScheduleTask2(Queue Q, int tQ, ref int time, ref string seq, List<Process> refProcesses, Queue Q1)
+        public bool ScheduleTask2(Queue Q, int tQ, ref int time, ref string seq, List<Process> refProcesses, Queue Q1)
         {
             bool flag = true;
 
@@ -394,7 +409,7 @@ namespace testapp1
                             int execTime = refProcesses[i].getArrivalTime() - time;
                             if (execTime < tQ)
                             {
-                                Console.WriteLine("Found Process that is not in Q1 and could come in  " + execTime);
+                                Debug.WriteLine("Found Process that is not in Q1 and could come in  " + execTime);
 
                                 if (Q.qProcess[0].getRemainingTime() > execTime)
                                 {
@@ -408,7 +423,7 @@ namespace testapp1
                                 {
                                     time += Q.qProcess[0].getRemainingTime();
                                     Q.qProcess[0].setRemainingTime(Q.qProcess[0].getRemainingTime());
-                                    Console.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
+                                    Debug.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
                                     Q.qProcess[0].isFinished = true;
                                     Q.qProcess[0].completionTime = time;
                                     Q.qProcess[0].turnAroundTime = time - Q.qProcess[0].getArrivalTime();
@@ -438,7 +453,7 @@ namespace testapp1
                 {
                     time += Q.qProcess[0].getRemainingTime();
                     Q.qProcess[0].setRemainingTime(Q.qProcess[0].getRemainingTime());
-                    Console.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
+                    Debug.WriteLine("DOne with : " + Q.qProcess[0].getName() + " " + time);
                     Q.qProcess[0].isFinished = true;
                     Q.qProcess[0].completionTime = time;
                     Q.qProcess[0].turnAroundTime = time - Q.qProcess[0].getArrivalTime();
@@ -460,16 +475,16 @@ namespace testapp1
                     p.print();
                 });
 
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
+                Debug.WriteLine("");
+                Debug.WriteLine("");
+                Debug.WriteLine("");
+                Debug.WriteLine("");
             }
 
             return flag;
         }
 
-        public static float AverageTAT(List<Process> pro)
+        public float AverageTAT(List<Process> pro)
         {
             float averageTAT = 0;
 
@@ -482,7 +497,7 @@ namespace testapp1
             return averageTAT;
         }
 
-        public static float AverageWaitingTime(List<Process> pro)
+        public float AverageWaitingTime(List<Process> pro)
         {
             float averageWT = 0;
             pro.ForEach(delegate (Process p)

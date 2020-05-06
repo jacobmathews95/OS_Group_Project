@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace testapp1
 {
@@ -14,6 +15,7 @@ namespace testapp1
     {
         private DataTable tRR;
         private DataTable tMLQ;
+        private MultiLevelQueue mlqAlgo;
 
         public MainForm()
         {
@@ -26,11 +28,22 @@ namespace testapp1
             tbl2.AutoGenerateColumns = true;
             tbl2.DataSource = dsInputs; // dataset
             tbl2.DataMember = "MLQ"; // table name you need to show
+
+            mlqAlgo = new MultiLevelQueue();
+            for (int i = 0; i < tMLQ.Rows.Count - 1; i++)
+                mlqAlgo.Processes.Add(new Process(tMLQ.Rows[i].Field<string>(0), tMLQ.Rows[i].Field<int>(1), tMLQ.Rows[i].Field<int>(2), tMLQ.Rows[i].Field<int>(3)));
+      
+            mlqAlgo.Processes.ForEach(delegate (Process p)
+            {
+                p.print();
+            });
+            //Process idle = new Process("p_idle", 999, 99999, 0);
+           
         }
 
         private void label1_Click(object sender, EventArgs e) 
         {
-
+            
         }
 
         private void lblMLFP_Click(object sender, EventArgs e) //MULTILEVEL FINISHED PROCESSES LABEL
@@ -169,9 +182,33 @@ namespace testapp1
 
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            //idle.print();
+            String seq = "";
+
+            mlqAlgo.MultiLevelQ(mlqAlgo.Processes, ref seq);
 
 
+            //RoundRobinA(q1);
+            //Average TAT
+
+            mlqAlgo.Processes.ForEach(delegate (Process p)
+            {
+                p.print();
+
+                //Console.WriteLine(p.getName() + " " + p.completionTime + "  " + p.turnAroundTime);
+                //tat += p.turnAroundTime;
+            });
 
 
+            Debug.WriteLine("AVG: TAT          = " + mlqAlgo.AverageTAT(mlqAlgo.Processes));
+            Debug.WriteLine("AVG: Waiting Time = " + mlqAlgo.AverageWaitingTime(mlqAlgo.Processes));
+
+            Debug.WriteLine(seq);
+
+
+        }
     }
 }
