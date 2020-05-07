@@ -51,7 +51,7 @@ namespace testapp1
 
         public int time = 0;
         public Queue readyQ;
-        public void PrioritySchedule(MainForm mainForm, List<Process> processes, List<string> seq, int timeQuantum = 10)
+        public void PrioritySchedule(MainForm mainForm, List<Process> processes, List<string> seq, ref int idletime, int timeQuantum = 10)
         {
             processes.ForEach(delegate (Process p)
             {
@@ -79,11 +79,13 @@ namespace testapp1
                                 //Also using this * to attach the old process at the end
                                 if (readyQ.qProcess[0].getBurstTime() == readyQ.qProcess[0].getRemainingTime() && readyQ.qProcess.Count > 1)
                                 {
+
                                     readyQ.qProcess.Add(p);
                                 }
                                 //Attaching in front 
                                 else
                                 {
+                                    //readyQ.qProcess.Add(p);
                                     readyQ.qProcess.Insert(0, p);
                                 }
                             }
@@ -150,8 +152,10 @@ namespace testapp1
                     if (r == 1)
                     {
                         flag = false;
-                        Process p_idle = new Process("P_idle", 0, 100, 0);
+                        Process p_idle = new Process("P_idle", 0, 00, 0);
                         flag = Schedule_Idle(mainForm, readyQ, readyQ.timeQuantum, ref time, processes, seq,  p_idle);
+                        idletime += p_idle.getWaitingTime();
+                        //Should have used different parameter instead of waiting time, sorry it is misleading. Waiting time = Execution time;
                         Debug.WriteLine(p_idle.getWaitingTime());
                         //time++;
                     }
@@ -192,14 +196,16 @@ namespace testapp1
                     if (execTime < tQ)
                     {
                         time += execTime;
+                        p_idle.setWaitingTime(execTime);
                     }
                     else if (execTime >= tQ)
                     {
                         time += tQ;
+                        p_idle.setWaitingTime(tQ);
                     }
                     mainForm.UpdateRRUI(time, p_idle.getName(), Q.QueueString, FinishProcess);
                     seq.Add(p_idle.getName());
-                    p_idle.setWaitingTime(execTime);
+                    
                     return flag;
                     
                 }
@@ -259,6 +265,7 @@ namespace testapp1
                             seq.Add(Q.qProcess[0].getName());
                                 //+= "->" + Q.qProcess[0].getName();
                             Q.qProcess.RemoveAt(0);
+                            Q.qProcess.Insert(0,refProcesses[i]);
                             return flag;
                         }
                     }

@@ -198,8 +198,9 @@ namespace testapp1
 
 
             List<string> seq = new List<string>();
+            int idleTime = 0;
             
-            priorityAlgo.PrioritySchedule(this, priorityAlgo.Processes, seq, Int32.Parse(lblTQVal.Text));
+            priorityAlgo.PrioritySchedule(this, priorityAlgo.Processes, seq, ref idleTime, Int32.Parse(lblTQVal.Text));
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
@@ -212,6 +213,7 @@ namespace testapp1
             lblRRTATVal.Text = priorityAlgo.AverageTAT(priorityAlgo.Processes).ToString();
             lblRRWaitTImeVal.Text = priorityAlgo.AverageWaitingTime(priorityAlgo.Processes).ToString();
             lblRRGantt.Text += string.Join(" | ", updateRRTime);
+            Debug.WriteLine("M:::::::::::::" + idleTime);
             
             //Table Output.
             tableLayoutPanel1.RowCount = tableLayoutPanel1.RowCount + 1;
