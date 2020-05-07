@@ -150,8 +150,10 @@ namespace testapp1
                     if (r == 1)
                     {
                         flag = false;
-                        //Schedule(mainForm, readyQ, time, )
-                        time++;
+                        Process p_idle = new Process("P_idle", 0, 100, 0);
+                        flag = Schedule_Idle(mainForm, readyQ, readyQ.timeQuantum, ref time, processes, seq,  p_idle);
+                        Debug.WriteLine(p_idle.getWaitingTime());
+                        //time++;
                     }
 
                     else
@@ -174,6 +176,38 @@ namespace testapp1
             {
                 Debug.WriteLine(p.getName() + " " + p.completionTime + " " + p.turnAroundTime);
             });
+        }
+
+        public bool Schedule_Idle(MainForm mainForm, Queue Q, int tQ, ref int time, List<Process> refProcesses, List<string> seq, Process p_idle)
+        {
+            bool flag = true;
+            for(int i = 0; i < refProcesses.Count; i++)
+            {
+                if (!refProcesses[i].isFinished)
+                {
+                    flag = false;
+                    //As we know processes are sorted by arrival time.
+                    int execTime = refProcesses[i].getArrivalTime() - time;
+                    Debug.WriteLine("Found Process that is not in Q1 and could come in  " + execTime);
+                    if (execTime < tQ)
+                    {
+                        time += execTime;
+                    }
+                    else if (execTime >= tQ)
+                    {
+                        time += tQ;
+                    }
+                    mainForm.UpdateRRUI(time, p_idle.getName(), Q.QueueString, FinishProcess);
+                    seq.Add(p_idle.getName());
+                    p_idle.setWaitingTime(execTime);
+                    return flag;
+                    
+                }
+                
+            }
+
+            
+                return flag;
         }
 
         public bool Schedule(MainForm mainForm, Queue Q, int tQ, ref int time, List<Process> refProcesses, List<string> seq)
