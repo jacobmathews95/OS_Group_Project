@@ -214,8 +214,19 @@ namespace testapp1
             lblRRGantt.Text += string.Join(" | ", updateRRTime);
             
             //Table Output.
+            tableLayoutPanel1.RowCount = tableLayoutPanel1.RowCount + 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Controls.Add(new Label() { Text = "Time: "});
+
+            for (int i = 0; i < updateRRTime.Count; i++)
+            {
+                tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+                tableLayoutPanel1.Controls.Add(new Label() { Text = updateRRTime[i].ToString() });
+            }
+
+            tableLayoutPanel1.Controls.Add(new Label() { Text = "Process: " });
             tableLayoutPanel1.ColumnCount = updateRRTime.Count;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
 
             Debug.WriteLine("COLUMNS:::" + updateRRTime.Count);
             for (int i = 0; i < updateRRTime.Count; i++)
@@ -223,14 +234,7 @@ namespace testapp1
                 tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
                 tableLayoutPanel1.Controls.Add(new Label() { Text = seq[i].ToString() });
             }
-            tableLayoutPanel1.RowCount = tableLayoutPanel1.RowCount + 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-
-            for (int i = 0; i < updateRRTime.Count; i++)
-            {
-                tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-                tableLayoutPanel1.Controls.Add(new Label() { Text = updateRRTime[i].ToString() });
-            }
+            
 
         }
 
@@ -274,8 +278,18 @@ namespace testapp1
             lblMLTATVal.Text = mlqAlgo.AverageTAT(mlqAlgo.Processes).ToString();
             lblMLAvgWaitVal.Text = mlqAlgo.AverageWaitingTime(mlqAlgo.Processes).ToString();
 
+            tableLayoutPanel2.RowCount = tableLayoutPanel2.RowCount + 1;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.Controls.Add(new Label() { Text = "Time: " });
+
+            for (int i = 0; i < updateMLQTime.Count; i++)
+            {
+                tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+                tableLayoutPanel2.Controls.Add(new Label() { Text = updateMLQTime[i].ToString() });
+            }
             tableLayoutPanel2.ColumnCount = updateMLQTime.Count;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.Controls.Add(new Label() { Text = "Process: " });
 
             Debug.WriteLine("COLUMNS:::" + updateMLQTime.Count);
             for (int i = 0; i < updateMLQTime.Count; i++)
@@ -283,14 +297,7 @@ namespace testapp1
                 tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
                 tableLayoutPanel2.Controls.Add(new Label() { Text = seq[i].ToString() });
             }
-            tableLayoutPanel2.RowCount = tableLayoutPanel2.RowCount + 1;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-
-            for (int i = 0; i < updateMLQTime.Count; i++)
-            {
-                tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-                tableLayoutPanel2.Controls.Add(new Label() { Text = updateMLQTime[i].ToString() });
-            }
+            
         }
 
         public void UpdateRRUI(int currentTime,
