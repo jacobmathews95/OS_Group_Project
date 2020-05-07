@@ -204,15 +204,27 @@ namespace testapp1
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
+            float totalTime = 0;
             priorityAlgo.Processes.ForEach(delegate (Process p)
             {
                 p.print();
+                if (p.completionTime > totalTime)
+                    totalTime = p.completionTime;
             });
 
-            lblRRGantt.Text = seq + "\r\n";
-            lblRRTATVal.Text = priorityAlgo.AverageTAT(priorityAlgo.Processes).ToString();
-            lblRRWaitTImeVal.Text = priorityAlgo.AverageWaitingTime(priorityAlgo.Processes).ToString();
-            lblRRGantt.Text += string.Join(" | ", updateRRTime);
+            
+
+            for (int i = 0; i < priorityAlgo.Processes.Count; i++)
+            {
+                lblProcessVal.Text += priorityAlgo.Processes[i].getName() + "\r\n\r\n";
+                lblRRTATVal.Text += priorityAlgo.Processes[i].completionTime + "\r\n\r\n";
+                lblRRWaitTImeVal.Text += priorityAlgo.Processes[i].getWaitingTime() + "\r\n\r\n";
+            }
+
+            lblCPUUtilVal.Text = ((totalTime - idleTime) / totalTime).ToString();
+            //lblRRTATVal.Text = priorityAlgo.AverageTAT(priorityAlgo.Processes).ToString();
+            //lblRRWaitTImeVal.Text = priorityAlgo.AverageWaitingTime(priorityAlgo.Processes).ToString();
+            Debug.WriteLine("Total Time: " + totalTime);
             Debug.WriteLine("M:::::::::::::" + idleTime);
             
             //Table Output.
@@ -389,7 +401,9 @@ namespace testapp1
             lblRRWPVal.Text = "0";
             lblRRQLVal.Text = "0";
             lblRRFPVal.Text = "0";
-            lblRRGantt.Text = "";
+            lblRRWaitTImeVal.Text = "";
+            lblProcessVal.Text = "";
+            lblRRTATVal.Text = "";
             updateRRTime = new List<int>();
             tableLayoutPanel1.Controls.Clear();
             tableLayoutPanel1.RowCount = 1;
