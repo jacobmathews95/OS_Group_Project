@@ -34,16 +34,7 @@ namespace testapp1
             for (int i = 0; i < tRR.Rows.Count; i++)
                 priorityAlgo.Processes.Add(new Process(tRR.Rows[i].Field<string>(0), tRR.Rows[i].Field<int>(2), tRR.Rows[i].Field<int>(1), tRR.Rows[i].Field<int>(3)));
 
-            mlqAlgo = new MultiLevelQueue();
-            for (int i = 0; i < tMLQ.Rows.Count; i++) //Should it be until count
-                mlqAlgo.Processes.Add(new Process(tMLQ.Rows[i].Field<string>(0), tMLQ.Rows[i].Field<int>(2), tMLQ.Rows[i].Field<int>(1), tMLQ.Rows[i].Field<int>(3)));
-      
-            mlqAlgo.Processes.ForEach(delegate (Process p)
-            {
-                p.print();
-            });
-            //Process idle = new Process("p_idle", 999, 99999, 0);
-           
+
         }
 
         private void label1_Click(object sender, EventArgs e) 
@@ -189,6 +180,7 @@ namespace testapp1
         
         private void buttonRR_Click(object sender, EventArgs e)
         {
+
             String seq = "";
             priorityAlgo.PrioritySchedule(this, priorityAlgo.Processes, ref seq);
             Console.WriteLine();
@@ -204,36 +196,41 @@ namespace testapp1
         private void button2_Click(object sender, EventArgs e)
         {
             //onclick for MLQ
+            button1_Click(sender, e); //reset
 
+            if (mlqAlgo == null)
+                mlqAlgo = new MultiLevelQueue();
+            else
+            {
+                mlqAlgo = null;
+                mlqAlgo = new MultiLevelQueue();
+            }
 
-            //idle.print();
-            String seq = "";
-
-            mlqAlgo.MultiLevelQ(this, mlqAlgo.Processes, ref seq);
-
-
-            //RoundRobinA(q1);
-            //Average TAT
+            for (int i = 0; i < tMLQ.Rows.Count; i++) //Should it be until count
+                mlqAlgo.Processes.Add(new Process(tMLQ.Rows[i].Field<string>(0), tMLQ.Rows[i].Field<int>(2), tMLQ.Rows[i].Field<int>(1), tMLQ.Rows[i].Field<int>(3)));
 
             mlqAlgo.Processes.ForEach(delegate (Process p)
             {
                 p.print();
-
-                //Console.WriteLine(p.getName() + " " + p.completionTime + "  " + p.turnAroundTime);
-                //tat += p.turnAroundTime;
             });
+            //Process idle = new Process("p_idle", 999, 99999, 0);
 
+
+
+            String seq = "";
+            mlqAlgo.MultiLevelQ(this, mlqAlgo.Processes, ref seq, Int32.Parse(lblTQ1Val.Text), Int32.Parse(lblTQ2Val.Text));
+            mlqAlgo.Processes.ForEach(delegate (Process p)
+            {
+                p.print();
+            });
 
             Debug.WriteLine("AVG: TAT          = " + mlqAlgo.AverageTAT(mlqAlgo.Processes));
             Debug.WriteLine("AVG: Waiting Time = " + mlqAlgo.AverageWaitingTime(mlqAlgo.Processes));
-
             Debug.WriteLine(seq);
 
+            lblMLQGantt.Text = seq;
             lblMLTATVal.Text = mlqAlgo.AverageTAT(mlqAlgo.Processes).ToString();
             lblMLAvgWaitVal.Text = mlqAlgo.AverageWaitingTime(mlqAlgo.Processes).ToString();
-
-
-
         }
 
 
@@ -250,5 +247,51 @@ namespace testapp1
             lblMLFPVal.Text = finishedProcesses;
         }
 
+        private void mlq_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPlus1_Click(object sender, EventArgs e)
+        {
+            int i = Int32.Parse(lblTQ1Val.Text);
+            i++;
+            lblTQ1Val.Text = i.ToString();
+        }
+
+        private void btnPlus2_Click(object sender, EventArgs e)
+        {
+            int i = Int32.Parse(lblTQ2Val.Text);
+            i++;
+            lblTQ2Val.Text = i.ToString();
+        }
+
+        private void btnMin1_Click(object sender, EventArgs e)
+        {
+            int i = Int32.Parse(lblTQ1Val.Text);
+            i--;
+            lblTQ1Val.Text = i.ToString();
+        }
+
+        private void btnMin2_Click(object sender, EventArgs e)
+        {
+            int i = Int32.Parse(lblTQ2Val.Text);
+            i--;
+            lblTQ2Val.Text = i.ToString();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //reset.
+           
+            lblMLTATVal.Text = "0";
+            lblMLCTVal.Text = "0";
+            lblMLCPVal.Text = "0";
+            lblMLWP1Val.Text = "0";
+            lblMLWP2Val.Text = "0";
+            lblMLFPVal.Text = "0";
+            lblMLAvgWaitVal.Text = "0";
+            lblMLQGantt.Text = "";
+        }
     }
 }
