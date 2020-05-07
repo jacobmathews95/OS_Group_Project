@@ -217,7 +217,7 @@ namespace testapp1
             for (int i = 0; i < priorityAlgo.Processes.Count; i++)
             {
                 lblProcessVal.Text += priorityAlgo.Processes[i].getName() + "\r\n\r\n";
-                lblRRTATVal.Text += priorityAlgo.Processes[i].completionTime + "\r\n\r\n";
+                lblRRTATVal.Text += priorityAlgo.Processes[i].turnAroundTime + "\r\n\r\n";
                 lblRRWaitTImeVal.Text += priorityAlgo.Processes[i].getWaitingTime() + "\r\n\r\n";
             }
 
@@ -321,7 +321,7 @@ namespace testapp1
         {
             lblRRCTVal.Text = currentTime.ToString();
             lblRRCPVal.Text = currentProcess;
-            lblRRQLVal.Text = q1ProcessesWaiting;
+            lblRRWPVal.Text = q1ProcessesWaiting;
             lblRRFPVal.Text = finishedProcesses;
             updateRRTime.Add(currentTime);
 

@@ -30,10 +30,14 @@
         {
             this.tabMain = new System.Windows.Forms.TabControl();
             this.rr = new System.Windows.Forms.TabPage();
+            this.lblCPUUtilVal = new System.Windows.Forms.Label();
+            this.lblCPUVal = new System.Windows.Forms.Label();
+            this.lblProcessVal = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblRRWaitTImeVal = new System.Windows.Forms.Label();
             this.lblRRWaitTIme = new System.Windows.Forms.Label();
             this.lblRRTATVal = new System.Windows.Forms.Label();
+            this.lblRRTAT = new System.Windows.Forms.Label();
             this.lblRRProcesses = new System.Windows.Forms.Label();
             this.btnMinus = new System.Windows.Forms.Button();
             this.lblTQVal = new System.Windows.Forms.Label();
@@ -83,10 +87,6 @@
             this.lblMLCT = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.lblRRTAT = new System.Windows.Forms.Label();
-            this.lblProcessVal = new System.Windows.Forms.Label();
-            this.lblCPUUtilVal = new System.Windows.Forms.Label();
-            this.lblCPUVal = new System.Windows.Forms.Label();
             this.tabMain.SuspendLayout();
             this.rr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbl1)).BeginInit();
@@ -100,7 +100,7 @@
             this.tabMain.Controls.Add(this.rr);
             this.tabMain.Controls.Add(this.mlq);
             this.tabMain.Location = new System.Drawing.Point(16, 15);
-            this.tabMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabMain.Margin = new System.Windows.Forms.Padding(4);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
             this.tabMain.Size = new System.Drawing.Size(1035, 697);
@@ -135,14 +135,43 @@
             this.rr.Controls.Add(this.btnReset);
             this.rr.Controls.Add(this.btnCalc);
             this.rr.Location = new System.Drawing.Point(4, 25);
-            this.rr.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rr.Margin = new System.Windows.Forms.Padding(4);
             this.rr.Name = "rr";
-            this.rr.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rr.Padding = new System.Windows.Forms.Padding(4);
             this.rr.Size = new System.Drawing.Size(1027, 668);
             this.rr.TabIndex = 0;
             this.rr.Text = "Round Robin";
             this.rr.UseVisualStyleBackColor = true;
             this.rr.Click += new System.EventHandler(this.rr_Click);
+            // 
+            // lblCPUUtilVal
+            // 
+            this.lblCPUUtilVal.AutoSize = true;
+            this.lblCPUUtilVal.Location = new System.Drawing.Point(422, 535);
+            this.lblCPUUtilVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCPUUtilVal.Name = "lblCPUUtilVal";
+            this.lblCPUUtilVal.Size = new System.Drawing.Size(16, 17);
+            this.lblCPUUtilVal.TabIndex = 49;
+            this.lblCPUUtilVal.Text = "0";
+            // 
+            // lblCPUVal
+            // 
+            this.lblCPUVal.AutoSize = true;
+            this.lblCPUVal.Location = new System.Drawing.Point(275, 535);
+            this.lblCPUVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCPUVal.Name = "lblCPUVal";
+            this.lblCPUVal.Size = new System.Drawing.Size(101, 17);
+            this.lblCPUVal.TabIndex = 48;
+            this.lblCPUVal.Text = "CPU Utilization";
+            // 
+            // lblProcessVal
+            // 
+            this.lblProcessVal.AutoSize = true;
+            this.lblProcessVal.Location = new System.Drawing.Point(720, 256);
+            this.lblProcessVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblProcessVal.Name = "lblProcessVal";
+            this.lblProcessVal.Size = new System.Drawing.Size(0, 17);
+            this.lblProcessVal.TabIndex = 47;
             // 
             // tableLayoutPanel1
             // 
@@ -195,6 +224,16 @@
             this.lblRRTATVal.TabIndex = 43;
             this.lblRRTATVal.Text = "0";
             // 
+            // lblRRTAT
+            // 
+            this.lblRRTAT.AutoSize = true;
+            this.lblRRTAT.Location = new System.Drawing.Point(815, 219);
+            this.lblRRTAT.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRRTAT.Name = "lblRRTAT";
+            this.lblRRTAT.Size = new System.Drawing.Size(39, 17);
+            this.lblRRTAT.TabIndex = 42;
+            this.lblRRTAT.Text = "TAT:";
+            // 
             // lblRRProcesses
             // 
             this.lblRRProcesses.AutoSize = true;
@@ -208,7 +247,7 @@
             // btnMinus
             // 
             this.btnMinus.Location = new System.Drawing.Point(327, 404);
-            this.btnMinus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMinus.Margin = new System.Windows.Forms.Padding(4);
             this.btnMinus.Name = "btnMinus";
             this.btnMinus.Size = new System.Drawing.Size(61, 28);
             this.btnMinus.TabIndex = 28;
@@ -230,7 +269,7 @@
             // btnPlus
             // 
             this.btnPlus.Location = new System.Drawing.Point(257, 404);
-            this.btnPlus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPlus.Margin = new System.Windows.Forms.Padding(4);
             this.btnPlus.Name = "btnPlus";
             this.btnPlus.Size = new System.Drawing.Size(61, 28);
             this.btnPlus.TabIndex = 27;
@@ -257,7 +296,7 @@
             this.tbl1.DataSource = this.dsInputs;
             this.tbl1.GridColor = System.Drawing.SystemColors.ButtonHighlight;
             this.tbl1.Location = new System.Drawing.Point(7, 4);
-            this.tbl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbl1.Margin = new System.Windows.Forms.Padding(4);
             this.tbl1.Name = "tbl1";
             this.tbl1.RowHeadersWidth = 49;
             this.tbl1.Size = new System.Drawing.Size(1009, 185);
@@ -370,7 +409,7 @@
             // btnReset
             // 
             this.btnReset.Location = new System.Drawing.Point(488, 208);
-            this.btnReset.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnReset.Margin = new System.Windows.Forms.Padding(4);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(100, 28);
             this.btnReset.TabIndex = 2;
@@ -381,7 +420,7 @@
             // btnCalc
             // 
             this.btnCalc.Location = new System.Drawing.Point(351, 208);
-            this.btnCalc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCalc.Margin = new System.Windows.Forms.Padding(4);
             this.btnCalc.Name = "btnCalc";
             this.btnCalc.Size = new System.Drawing.Size(100, 28);
             this.btnCalc.TabIndex = 1;
@@ -421,9 +460,9 @@
             this.mlq.Controls.Add(this.button1);
             this.mlq.Controls.Add(this.button2);
             this.mlq.Location = new System.Drawing.Point(4, 25);
-            this.mlq.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.mlq.Margin = new System.Windows.Forms.Padding(4);
             this.mlq.Name = "mlq";
-            this.mlq.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.mlq.Padding = new System.Windows.Forms.Padding(4);
             this.mlq.Size = new System.Drawing.Size(1027, 668);
             this.mlq.TabIndex = 1;
             this.mlq.Text = "Multilevel Queue";
@@ -461,7 +500,7 @@
             // btnMin2
             // 
             this.btnMin2.Location = new System.Drawing.Point(375, 439);
-            this.btnMin2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMin2.Margin = new System.Windows.Forms.Padding(4);
             this.btnMin2.Name = "btnMin2";
             this.btnMin2.Size = new System.Drawing.Size(61, 28);
             this.btnMin2.TabIndex = 39;
@@ -482,7 +521,7 @@
             // btnPlus2
             // 
             this.btnPlus2.Location = new System.Drawing.Point(305, 439);
-            this.btnPlus2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPlus2.Margin = new System.Windows.Forms.Padding(4);
             this.btnPlus2.Name = "btnPlus2";
             this.btnPlus2.Size = new System.Drawing.Size(61, 28);
             this.btnPlus2.TabIndex = 38;
@@ -503,7 +542,7 @@
             // btnMin1
             // 
             this.btnMin1.Location = new System.Drawing.Point(375, 405);
-            this.btnMin1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMin1.Margin = new System.Windows.Forms.Padding(4);
             this.btnMin1.Name = "btnMin1";
             this.btnMin1.Size = new System.Drawing.Size(61, 28);
             this.btnMin1.TabIndex = 35;
@@ -524,7 +563,7 @@
             // btnPlus1
             // 
             this.btnPlus1.Location = new System.Drawing.Point(305, 405);
-            this.btnPlus1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPlus1.Margin = new System.Windows.Forms.Padding(4);
             this.btnPlus1.Name = "btnPlus1";
             this.btnPlus1.Size = new System.Drawing.Size(61, 28);
             this.btnPlus1.TabIndex = 34;
@@ -611,7 +650,7 @@
             this.tbl2.DataSource = this.dsInputs;
             this.tbl2.GridColor = System.Drawing.SystemColors.ButtonHighlight;
             this.tbl2.Location = new System.Drawing.Point(8, 0);
-            this.tbl2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbl2.Margin = new System.Windows.Forms.Padding(4);
             this.tbl2.Name = "tbl2";
             this.tbl2.RowHeadersWidth = 49;
             this.tbl2.Size = new System.Drawing.Size(1009, 185);
@@ -723,7 +762,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(481, 207);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
             this.button1.TabIndex = 5;
@@ -734,7 +773,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(344, 207);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 28);
             this.button2.TabIndex = 4;
@@ -742,52 +781,13 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // lblRRTAT
-            // 
-            this.lblRRTAT.AutoSize = true;
-            this.lblRRTAT.Location = new System.Drawing.Point(815, 219);
-            this.lblRRTAT.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblRRTAT.Name = "lblRRTAT";
-            this.lblRRTAT.Size = new System.Drawing.Size(39, 17);
-            this.lblRRTAT.TabIndex = 42;
-            this.lblRRTAT.Text = "TAT:";
-            // 
-            // lblProcessVal
-            // 
-            this.lblProcessVal.AutoSize = true;
-            this.lblProcessVal.Location = new System.Drawing.Point(720, 256);
-            this.lblProcessVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblProcessVal.Name = "lblProcessVal";
-            this.lblProcessVal.Size = new System.Drawing.Size(0, 17);
-            this.lblProcessVal.TabIndex = 47;
-            // 
-            // lblCPUUtilVal
-            // 
-            this.lblCPUUtilVal.AutoSize = true;
-            this.lblCPUUtilVal.Location = new System.Drawing.Point(422, 535);
-            this.lblCPUUtilVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblCPUUtilVal.Name = "lblCPUUtilVal";
-            this.lblCPUUtilVal.Size = new System.Drawing.Size(16, 17);
-            this.lblCPUUtilVal.TabIndex = 49;
-            this.lblCPUUtilVal.Text = "0";
-            // 
-            // lblCPUVal
-            // 
-            this.lblCPUVal.AutoSize = true;
-            this.lblCPUVal.Location = new System.Drawing.Point(275, 535);
-            this.lblCPUVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblCPUVal.Name = "lblCPUVal";
-            this.lblCPUVal.Size = new System.Drawing.Size(101, 17);
-            this.lblCPUVal.TabIndex = 48;
-            this.lblCPUVal.Text = "CPU Utilization";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 726);
             this.Controls.Add(this.tabMain);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.tabMain.ResumeLayout(false);
