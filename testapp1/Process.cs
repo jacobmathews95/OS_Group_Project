@@ -212,7 +212,7 @@ namespace testapp1
         }
 
 
-        public void MultiLevelQ(MainForm mainForm, List<Process> processes, ref string seq, int timeQuantum1 = 3, int timeQuantum2 = 4)
+        public void MultiLevelQ(MainForm mainForm, List<Process> processes, List<string> seq, int timeQuantum1 = 3, int timeQuantum2 = 4)
         {
             _MainForm = mainForm;
 
@@ -296,14 +296,14 @@ namespace testapp1
                 if (!readyQ.isEmpty())
                 {
                     //HP Q not to worry about premption.
-                    flag = ScheduleTask(_MainForm, readyQ, readyQ.timeQuantum, ref time, ref seq, readyQ2);
+                    flag = ScheduleTask(_MainForm, readyQ, readyQ.timeQuantum, ref time,  seq, readyQ2);
                     //ScheduleTask2(_MainForm, readyQ, readyQ.timeQuantum, ref time, ref seq, processes ,readyQ2, false);
                 }
                 //HP (high priority) Q is empty, we execute LP Q
                 else if (readyQ.isEmpty() && !readyQ2.isEmpty())
                 {
                     //Have o take care of premption.
-                    flag = ScheduleTask2(_MainForm, readyQ2, readyQ2.timeQuantum, ref time, ref seq, processes, readyQ, true);
+                    flag = ScheduleTask2(_MainForm, readyQ2, readyQ2.timeQuantum, ref time, seq, processes, readyQ, true);
                 }
                 //We only exit if all the tasks are done, taking care of instances when the Q is empty
                 else
@@ -342,7 +342,7 @@ namespace testapp1
         }
 
         //HP schedule
-        public bool ScheduleTask(MainForm mainForm, Queue Q, int tQ, ref int time, ref string seq, Queue Q2)
+        public bool ScheduleTask(MainForm mainForm, Queue Q, int tQ, ref int time, List<string> seq, Queue Q2)
         {
             bool flag = true;
             //checking if the process is still not finished
@@ -359,10 +359,12 @@ namespace testapp1
                     Q.qProcess[0].setRemainingTime(tQ);
                     Q.qProcess.Add(Q.qProcess[0]);
 
-                    if (seq == "")
-                        seq += String.Format("|  {0}  |", Q.qProcess[0].getName());
-                    else
-                        seq += String.Format("  {0}  |", Q.qProcess[0].getName());
+                    seq.Add(Q.qProcess[0].getName());
+
+                    //if (seq == "")
+                    //    seq += String.Format("|  {0}  |", Q.qProcess[0].getName());
+                    //else
+                    //    seq += String.Format("  {0}  |", Q.qProcess[0].getName());
 
                     Q.qProcess.RemoveAt(0);
                     //return flag;
@@ -381,10 +383,11 @@ namespace testapp1
                     //Waiting Time: 
                     Q.qProcess[0].setWaitingTime(time - Q.qProcess[0].getBurstTime() - Q.qProcess[0].getArrivalTime());
 
-                    if (seq == "")
-                        seq += String.Format("|  {0}  |", Q.qProcess[0].getName());
-                    else
-                        seq += String.Format("  {0}  |", Q.qProcess[0].getName());
+                    seq.Add(Q.qProcess[0].getName());
+                    //if (seq == "")
+                    //    seq += String.Format("|  {0}  |", Q.qProcess[0].getName());
+                    //else
+                    //    seq += String.Format("  {0}  |", Q.qProcess[0].getName());
 
                     mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q.QueueString, Q2.QueueString, FinishProcess);
                     Q.qProcess.RemoveAt(0);
@@ -410,7 +413,7 @@ namespace testapp1
         }
 
         //For LP Q
-        public bool ScheduleTask2(MainForm mainForm, Queue Q, int tQ, ref int time, ref string seq, List<Process> refProcesses, Queue Q1, bool prempt = false)
+        public bool ScheduleTask2(MainForm mainForm, Queue Q, int tQ, ref int time, List<string> seq, List<Process> refProcesses, Queue Q1, bool prempt = false)
         {
             bool flag = true;
 
@@ -462,10 +465,11 @@ namespace testapp1
                                 }
                                 mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q.QueueString, Q1.QueueString, FinishProcess);
 
-                                if (seq == "")
-                                    seq += String.Format("|  {0}  |", Q.qProcess[0].getName());
-                                else
-                                    seq += String.Format("  {0}  |", Q.qProcess[0].getName());
+                                seq.Add(Q.qProcess[0].getName());
+                                //if (seq == "")
+                                //    seq += String.Format("|  {0}  |", Q.qProcess[0].getName());
+                                //else
+                                //    seq += String.Format("  {0}  |", Q.qProcess[0].getName());
 
 
                                 Q.qProcess.RemoveAt(0);
@@ -492,10 +496,11 @@ namespace testapp1
                     Q.qProcess[0].setRemainingTime(tQ);
                     Q.qProcess.Add(Q.qProcess[0]);
 
-                    if (seq == "")
-                        seq += String.Format("|  {0}  |", Q.qProcess[0].getName());
-                    else
-                        seq += String.Format("  {0}  |", Q.qProcess[0].getName());
+                    seq.Add(Q.qProcess[0].getName());
+                    //if (seq == "")
+                    //    seq += String.Format("|  {0}  |", Q.qProcess[0].getName());
+                    //else
+                    //    seq += String.Format("  {0}  |", Q.qProcess[0].getName());
 
 
                     Q.qProcess.RemoveAt(0);
@@ -515,11 +520,11 @@ namespace testapp1
                     //Waiting Time: 
                     Q.qProcess[0].setWaitingTime(time - Q.qProcess[0].getBurstTime() - Q.qProcess[0].getArrivalTime());
 
-
-                    if (seq == "")
-                        seq += String.Format("|  {0}  |", Q.qProcess[0].getName());
-                    else
-                        seq += String.Format("  {0}  |", Q.qProcess[0].getName());
+                    seq.Add(Q.qProcess[0].getName());
+                    //if (seq == "")
+                    //    seq += String.Format("|  {0}  |", Q.qProcess[0].getName());
+                    //else
+                    //    seq += String.Format("  {0}  |", Q.qProcess[0].getName());
 
 
                     mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q1.QueueString, Q.QueueString, FinishProcess);

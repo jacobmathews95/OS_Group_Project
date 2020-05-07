@@ -18,6 +18,9 @@ namespace testapp1
         private MultiLevelQueue mlqAlgo;
         private PriorityScheduling priorityAlgo;
 
+        List<int> updateRRTime = new List<int>();
+        List<int> updateMLQTime = new List<int>();
+
         public MainForm()
         {
             InitializeComponent();
@@ -181,8 +184,9 @@ namespace testapp1
         private void buttonRR_Click(object sender, EventArgs e)
         {
 
-            String seq = "";
-            priorityAlgo.PrioritySchedule(this, priorityAlgo.Processes, ref seq);
+            List<string> seq = new List<string>();
+            
+            priorityAlgo.PrioritySchedule(this, priorityAlgo.Processes, seq, Int32.Parse(lblTQVal.Text));
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
@@ -190,6 +194,30 @@ namespace testapp1
             {
                 p.print();
             });
+
+            lblRRGantt.Text = seq + "\r\n";
+            lblRRTATVal.Text = priorityAlgo.AverageTAT(priorityAlgo.Processes).ToString();
+            lblRRWaitTImeVal.Text = priorityAlgo.AverageWaitingTime(priorityAlgo.Processes).ToString();
+            lblRRGantt.Text += string.Join(" | ", updateRRTime);
+            
+            //Table Output.
+            tableLayoutPanel1.ColumnCount = updateRRTime.Count;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+
+            Debug.WriteLine("COLUMNS:::" + updateRRTime.Count);
+            for (int i = 0; i < updateRRTime.Count; i++)
+            {
+                tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+                tableLayoutPanel1.Controls.Add(new Label() { Text = seq[i].ToString() });
+            }
+            tableLayoutPanel1.RowCount = tableLayoutPanel1.RowCount + 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+
+            for (int i = 0; i < updateRRTime.Count; i++)
+            {
+                tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+                tableLayoutPanel1.Controls.Add(new Label() { Text = updateRRTime[i].ToString() });
+            }
 
         }
 
@@ -217,8 +245,8 @@ namespace testapp1
 
 
 
-            String seq = "";
-            mlqAlgo.MultiLevelQ(this, mlqAlgo.Processes, ref seq, Int32.Parse(lblTQ1Val.Text), Int32.Parse(lblTQ2Val.Text));
+            List<string> seq = new List<string>();
+            mlqAlgo.MultiLevelQ(this, mlqAlgo.Processes, seq, Int32.Parse(lblTQ1Val.Text), Int32.Parse(lblTQ2Val.Text));
             mlqAlgo.Processes.ForEach(delegate (Process p)
             {
                 p.print();
@@ -228,9 +256,28 @@ namespace testapp1
             Debug.WriteLine("AVG: Waiting Time = " + mlqAlgo.AverageWaitingTime(mlqAlgo.Processes));
             Debug.WriteLine(seq);
 
-            lblMLQGantt.Text = seq;
+            lblMLQGantt.Text = seq + "\r\n";
+            lblMLQGantt.Text += string.Join(" | ", updateMLQTime);
             lblMLTATVal.Text = mlqAlgo.AverageTAT(mlqAlgo.Processes).ToString();
             lblMLAvgWaitVal.Text = mlqAlgo.AverageWaitingTime(mlqAlgo.Processes).ToString();
+
+            tableLayoutPanel2.ColumnCount = updateMLQTime.Count;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+
+            Debug.WriteLine("COLUMNS:::" + updateMLQTime.Count);
+            for (int i = 0; i < updateMLQTime.Count; i++)
+            {
+                tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+                tableLayoutPanel2.Controls.Add(new Label() { Text = seq[i].ToString() });
+            }
+            tableLayoutPanel2.RowCount = tableLayoutPanel2.RowCount + 1;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+
+            for (int i = 0; i < updateMLQTime.Count; i++)
+            {
+                tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+                tableLayoutPanel2.Controls.Add(new Label() { Text = updateMLQTime[i].ToString() });
+            }
         }
 
         public void UpdateRRUI(int currentTime,
@@ -242,6 +289,8 @@ namespace testapp1
             lblRRCPVal.Text = currentProcess;
             lblRRQLVal.Text = q1ProcessesWaiting;
             lblRRFPVal.Text = finishedProcesses;
+            updateRRTime.Add(currentTime);
+
         }
 
         public void UpdateMLQUI(int currentTime, 
@@ -255,6 +304,7 @@ namespace testapp1
             lblMLWP1Val.Text = q1ProcessesWaiting;
             lblMLWP2Val.Text = q2ProcessesWaiting;
             lblMLFPVal.Text = finishedProcesses;
+            updateMLQTime.Add(currentTime);
         }
 
         private void mlq_Click(object sender, EventArgs e)
@@ -331,6 +381,21 @@ namespace testapp1
             int i = Int32.Parse(lblTQVal.Text);
             i--;
             lblTQVal.Text = i.ToString();
+        }
+
+        private void lblTQVal_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblRRGantt_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

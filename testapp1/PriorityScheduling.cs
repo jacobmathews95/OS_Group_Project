@@ -51,7 +51,7 @@ namespace testapp1
 
         public int time = 0;
         public Queue readyQ;
-        public void PrioritySchedule(MainForm mainForm, List<Process> processes, ref string seq, int timeQuantum = 10)
+        public void PrioritySchedule(MainForm mainForm, List<Process> processes, List<string> seq, int timeQuantum = 10)
         {
             processes.ForEach(delegate (Process p)
             {
@@ -129,7 +129,7 @@ namespace testapp1
 
                 if (!readyQ.isEmpty())
                 {
-                    flag = Schedule(mainForm, readyQ, readyQ.timeQuantum, ref time, processes, ref seq);
+                    flag = Schedule(mainForm, readyQ, readyQ.timeQuantum, ref time, processes, seq);
                 }
                 else
                 {
@@ -175,7 +175,7 @@ namespace testapp1
             });
         }
 
-        public bool Schedule(MainForm mainForm, Queue Q, int tQ, ref int time, List<Process> refProcesses, ref string seq)
+        public bool Schedule(MainForm mainForm, Queue Q, int tQ, ref int time, List<Process> refProcesses, List<string> seq)
         {
             bool flag = true;
 
@@ -221,7 +221,8 @@ namespace testapp1
 
                             }
                             mainForm.UpdateRRUI(time, Q.qProcess[0].getName(), Q.QueueString,FinishProcess);
-                            seq += "->" + Q.qProcess[0].getName();
+                            seq.Add(Q.qProcess[0].getName());
+                                //+= "->" + Q.qProcess[0].getName();
                             Q.qProcess.RemoveAt(0);
                             return flag;
                         }
@@ -245,7 +246,8 @@ namespace testapp1
                     mainForm.UpdateRRUI(time, Q.qProcess[0].getName(), Q.QueueString, FinishProcess);
                     Q.qProcess[0].setRemainingTime(tQ);
                     Q.qProcess.Add(Q.qProcess[0]);
-                    seq += "->" + Q.qProcess[0].getName();
+                    seq.Add(Q.qProcess[0].getName());
+                    //seq += "->" + Q.qProcess[0].getName();
                     Q.qProcess.RemoveAt(0);
                     //return flag;
 
@@ -262,7 +264,8 @@ namespace testapp1
 
                     //Waiting Time: 
                     Q.qProcess[0].setWaitingTime(time - Q.qProcess[0].getBurstTime() - Q.qProcess[0].getArrivalTime());
-                    seq += "->" + Q.qProcess[0].getName();
+                    seq.Add(Q.qProcess[0].getName());
+                    //seq += "->" + Q.qProcess[0].getName();
                     mainForm.UpdateRRUI(time, Q.qProcess[0].getName(), Q.QueueString, FinishProcess);
                     Q.qProcess.RemoveAt(0);
                 }
