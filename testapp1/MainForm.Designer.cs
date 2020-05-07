@@ -30,7 +30,11 @@
         {
             this.tabMain = new System.Windows.Forms.TabControl();
             this.rr = new System.Windows.Forms.TabPage();
-            this.lblRRGantt = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblRRWaitTImeVal = new System.Windows.Forms.Label();
+            this.lblRRWaitTIme = new System.Windows.Forms.Label();
+            this.lblRRTATVal = new System.Windows.Forms.Label();
+            this.lblRRTAT = new System.Windows.Forms.Label();
             this.btnMinus = new System.Windows.Forms.Button();
             this.lblTQVal = new System.Windows.Forms.Label();
             this.btnPlus = new System.Windows.Forms.Button();
@@ -50,7 +54,7 @@
             this.btnReset = new System.Windows.Forms.Button();
             this.btnCalc = new System.Windows.Forms.Button();
             this.mlq = new System.Windows.Forms.TabPage();
-            this.lblMLQGantt = new System.Windows.Forms.Label();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnMin2 = new System.Windows.Forms.Button();
             this.lblTQ2Val = new System.Windows.Forms.Label();
             this.btnPlus2 = new System.Windows.Forms.Button();
@@ -78,12 +82,8 @@
             this.lblMLCT = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.lblRRTATVal = new System.Windows.Forms.Label();
-            this.lblRRTAT = new System.Windows.Forms.Label();
-            this.lblRRWaitTImeVal = new System.Windows.Forms.Label();
-            this.lblRRWaitTIme = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblMLQGantt = new System.Windows.Forms.Label();
+            this.lblRRGantt = new System.Windows.Forms.Label();
             this.tabMain.SuspendLayout();
             this.rr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbl1)).BeginInit();
@@ -96,11 +96,10 @@
             // 
             this.tabMain.Controls.Add(this.rr);
             this.tabMain.Controls.Add(this.mlq);
-            this.tabMain.Location = new System.Drawing.Point(16, 15);
-            this.tabMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabMain.Location = new System.Drawing.Point(12, 12);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(1035, 697);
+            this.tabMain.Size = new System.Drawing.Size(776, 566);
             this.tabMain.TabIndex = 0;
             // 
             // rr
@@ -110,7 +109,6 @@
             this.rr.Controls.Add(this.lblRRWaitTIme);
             this.rr.Controls.Add(this.lblRRTATVal);
             this.rr.Controls.Add(this.lblRRTAT);
-            this.rr.Controls.Add(this.lblRRGantt);
             this.rr.Controls.Add(this.btnMinus);
             this.rr.Controls.Add(this.lblTQVal);
             this.rr.Controls.Add(this.btnPlus);
@@ -128,31 +126,78 @@
             this.rr.Controls.Add(this.lblRRCT);
             this.rr.Controls.Add(this.btnReset);
             this.rr.Controls.Add(this.btnCalc);
-            this.rr.Location = new System.Drawing.Point(4, 25);
-            this.rr.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rr.Controls.Add(this.lblRRGantt);
+            this.rr.Location = new System.Drawing.Point(4, 22);
             this.rr.Name = "rr";
-            this.rr.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.rr.Size = new System.Drawing.Size(1027, 668);
+            this.rr.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.rr.Size = new System.Drawing.Size(768, 540);
             this.rr.TabIndex = 0;
             this.rr.Text = "Round Robin";
             this.rr.UseVisualStyleBackColor = true;
             this.rr.Click += new System.EventHandler(this.rr_Click);
             // 
-            // lblRRGantt
+            // tableLayoutPanel1
             // 
-            this.lblRRGantt.Location = new System.Drawing.Point(3, 484);
-            this.lblRRGantt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblRRGantt.Name = "lblRRGantt";
-            this.lblRRGantt.Size = new System.Drawing.Size(1008, 68);
-            this.lblRRGantt.TabIndex = 41;
-            this.lblRRGantt.Click += new System.EventHandler(this.lblRRGantt_Click);
+            this.tableLayoutPanel1.AutoScroll = true;
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Gainsboro;
+            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Outset;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Cursor = System.Windows.Forms.Cursors.SizeNESW;
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 472);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel1.MaximumSize = new System.Drawing.Size(762, 65);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(762, 65);
+            this.tableLayoutPanel1.TabIndex = 46;
+            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
+            // 
+            // lblRRWaitTImeVal
+            // 
+            this.lblRRWaitTImeVal.AutoSize = true;
+            this.lblRRWaitTImeVal.Location = new System.Drawing.Point(573, 294);
+            this.lblRRWaitTImeVal.Name = "lblRRWaitTImeVal";
+            this.lblRRWaitTImeVal.Size = new System.Drawing.Size(13, 13);
+            this.lblRRWaitTImeVal.TabIndex = 45;
+            this.lblRRWaitTImeVal.Text = "0";
+            // 
+            // lblRRWaitTIme
+            // 
+            this.lblRRWaitTIme.AutoSize = true;
+            this.lblRRWaitTIme.Location = new System.Drawing.Point(487, 294);
+            this.lblRRWaitTIme.Name = "lblRRWaitTIme";
+            this.lblRRWaitTIme.Size = new System.Drawing.Size(80, 13);
+            this.lblRRWaitTIme.TabIndex = 44;
+            this.lblRRWaitTIme.Text = "Avg Wait Time:";
+            // 
+            // lblRRTATVal
+            // 
+            this.lblRRTATVal.AutoSize = true;
+            this.lblRRTATVal.Location = new System.Drawing.Point(546, 272);
+            this.lblRRTATVal.Name = "lblRRTATVal";
+            this.lblRRTATVal.Size = new System.Drawing.Size(13, 13);
+            this.lblRRTATVal.TabIndex = 43;
+            this.lblRRTATVal.Text = "0";
+            // 
+            // lblRRTAT
+            // 
+            this.lblRRTAT.AutoSize = true;
+            this.lblRRTAT.Location = new System.Drawing.Point(487, 272);
+            this.lblRRTAT.Name = "lblRRTAT";
+            this.lblRRTAT.Size = new System.Drawing.Size(53, 13);
+            this.lblRRTAT.TabIndex = 42;
+            this.lblRRTAT.Text = "Avg TAT:";
             // 
             // btnMinus
             // 
-            this.btnMinus.Location = new System.Drawing.Point(327, 404);
-            this.btnMinus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMinus.Location = new System.Drawing.Point(245, 328);
             this.btnMinus.Name = "btnMinus";
-            this.btnMinus.Size = new System.Drawing.Size(61, 28);
+            this.btnMinus.Size = new System.Drawing.Size(46, 23);
             this.btnMinus.TabIndex = 28;
             this.btnMinus.Text = " - ";
             this.btnMinus.UseVisualStyleBackColor = true;
@@ -161,20 +206,18 @@
             // lblTQVal
             // 
             this.lblTQVal.AutoSize = true;
-            this.lblTQVal.Location = new System.Drawing.Point(179, 410);
-            this.lblTQVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTQVal.Location = new System.Drawing.Point(134, 333);
             this.lblTQVal.Name = "lblTQVal";
-            this.lblTQVal.Size = new System.Drawing.Size(24, 17);
+            this.lblTQVal.Size = new System.Drawing.Size(19, 13);
             this.lblTQVal.TabIndex = 26;
             this.lblTQVal.Text = "10";
             this.lblTQVal.Click += new System.EventHandler(this.lblTQVal_Click);
             // 
             // btnPlus
             // 
-            this.btnPlus.Location = new System.Drawing.Point(257, 404);
-            this.btnPlus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPlus.Location = new System.Drawing.Point(193, 328);
             this.btnPlus.Name = "btnPlus";
-            this.btnPlus.Size = new System.Drawing.Size(61, 28);
+            this.btnPlus.Size = new System.Drawing.Size(46, 23);
             this.btnPlus.TabIndex = 27;
             this.btnPlus.Text = " + ";
             this.btnPlus.UseVisualStyleBackColor = true;
@@ -183,10 +226,9 @@
             // lblTQ
             // 
             this.lblTQ.AutoSize = true;
-            this.lblTQ.Location = new System.Drawing.Point(61, 410);
-            this.lblTQ.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTQ.Location = new System.Drawing.Point(46, 333);
             this.lblTQ.Name = "lblTQ";
-            this.lblTQ.Size = new System.Drawing.Size(109, 17);
+            this.lblTQ.Size = new System.Drawing.Size(82, 13);
             this.lblTQ.TabIndex = 25;
             this.lblTQ.Text = "Time Quantum: ";
             // 
@@ -198,11 +240,10 @@
             this.tbl1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tbl1.DataSource = this.dsInputs;
             this.tbl1.GridColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tbl1.Location = new System.Drawing.Point(7, 4);
-            this.tbl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbl1.Location = new System.Drawing.Point(5, 3);
             this.tbl1.Name = "tbl1";
             this.tbl1.RowHeadersWidth = 49;
-            this.tbl1.Size = new System.Drawing.Size(1009, 185);
+            this.tbl1.Size = new System.Drawing.Size(757, 150);
             this.tbl1.TabIndex = 24;
             // 
             // dsInputs
@@ -212,109 +253,98 @@
             // lblRRFPVal
             // 
             this.lblRRFPVal.AutoSize = true;
-            this.lblRRFPVal.Location = new System.Drawing.Point(796, 404);
-            this.lblRRFPVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRRFPVal.Location = new System.Drawing.Point(597, 328);
             this.lblRRFPVal.Name = "lblRRFPVal";
-            this.lblRRFPVal.Size = new System.Drawing.Size(16, 17);
+            this.lblRRFPVal.Size = new System.Drawing.Size(13, 13);
             this.lblRRFPVal.TabIndex = 23;
             this.lblRRFPVal.Text = "0";
             // 
             // lblRRFP
             // 
             this.lblRRFP.AutoSize = true;
-            this.lblRRFP.Location = new System.Drawing.Point(649, 404);
-            this.lblRRFP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRRFP.Location = new System.Drawing.Point(487, 328);
             this.lblRRFP.Name = "lblRRFP";
-            this.lblRRFP.Size = new System.Drawing.Size(139, 17);
+            this.lblRRFP.Size = new System.Drawing.Size(104, 13);
             this.lblRRFP.TabIndex = 22;
             this.lblRRFP.Text = "Finished Processes: ";
             // 
             // lblRRWPVal
             // 
             this.lblRRWPVal.AutoSize = true;
-            this.lblRRWPVal.Location = new System.Drawing.Point(292, 351);
-            this.lblRRWPVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRRWPVal.Location = new System.Drawing.Point(219, 285);
             this.lblRRWPVal.Name = "lblRRWPVal";
-            this.lblRRWPVal.Size = new System.Drawing.Size(16, 17);
+            this.lblRRWPVal.Size = new System.Drawing.Size(13, 13);
             this.lblRRWPVal.TabIndex = 21;
             this.lblRRWPVal.Text = "0";
             // 
             // lblRRWP
             // 
             this.lblRRWP.AutoSize = true;
-            this.lblRRWP.Location = new System.Drawing.Point(149, 351);
-            this.lblRRWP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRRWP.Location = new System.Drawing.Point(112, 285);
             this.lblRRWP.Name = "lblRRWP";
-            this.lblRRWP.Size = new System.Drawing.Size(133, 17);
+            this.lblRRWP.Size = new System.Drawing.Size(101, 13);
             this.lblRRWP.TabIndex = 20;
             this.lblRRWP.Text = "Waiting Processes: ";
             // 
             // lblRRQLVal
             // 
             this.lblRRQLVal.AutoSize = true;
-            this.lblRRQLVal.Location = new System.Drawing.Point(747, 294);
-            this.lblRRQLVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRRQLVal.Location = new System.Drawing.Point(560, 239);
             this.lblRRQLVal.Name = "lblRRQLVal";
-            this.lblRRQLVal.Size = new System.Drawing.Size(16, 17);
+            this.lblRRQLVal.Size = new System.Drawing.Size(13, 13);
             this.lblRRQLVal.TabIndex = 19;
             this.lblRRQLVal.Text = "0";
             // 
             // lblRRQL
             // 
             this.lblRRQL.AutoSize = true;
-            this.lblRRQL.Location = new System.Drawing.Point(649, 294);
-            this.lblRRQL.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRRQL.Location = new System.Drawing.Point(487, 239);
             this.lblRRQL.Name = "lblRRQL";
-            this.lblRRQL.Size = new System.Drawing.Size(102, 17);
+            this.lblRRQL.Size = new System.Drawing.Size(77, 13);
             this.lblRRQL.TabIndex = 18;
             this.lblRRQL.Text = "Quantum Left: ";
             // 
             // lblRRCPVal
             // 
             this.lblRRCPVal.AutoSize = true;
-            this.lblRRCPVal.Location = new System.Drawing.Point(275, 294);
-            this.lblRRCPVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRRCPVal.Location = new System.Drawing.Point(206, 239);
             this.lblRRCPVal.Name = "lblRRCPVal";
-            this.lblRRCPVal.Size = new System.Drawing.Size(16, 17);
+            this.lblRRCPVal.Size = new System.Drawing.Size(13, 13);
             this.lblRRCPVal.TabIndex = 17;
             this.lblRRCPVal.Text = "0";
             // 
             // lblRRCP
             // 
             this.lblRRCP.AutoSize = true;
-            this.lblRRCP.Location = new System.Drawing.Point(149, 294);
-            this.lblRRCP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRRCP.Location = new System.Drawing.Point(112, 239);
             this.lblRRCP.Name = "lblRRCP";
-            this.lblRRCP.Size = new System.Drawing.Size(118, 17);
+            this.lblRRCP.Size = new System.Drawing.Size(88, 13);
             this.lblRRCP.TabIndex = 16;
             this.lblRRCP.Text = "Current Process: ";
             // 
             // lblRRCTVal
             // 
             this.lblRRCTVal.AutoSize = true;
-            this.lblRRCTVal.Location = new System.Drawing.Point(492, 260);
-            this.lblRRCTVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRRCTVal.Location = new System.Drawing.Point(369, 211);
             this.lblRRCTVal.Name = "lblRRCTVal";
-            this.lblRRCTVal.Size = new System.Drawing.Size(16, 17);
+            this.lblRRCTVal.Size = new System.Drawing.Size(13, 13);
             this.lblRRCTVal.TabIndex = 9;
             this.lblRRCTVal.Text = "0";
             // 
             // lblRRCT
             // 
             this.lblRRCT.AutoSize = true;
-            this.lblRRCT.Location = new System.Drawing.Point(395, 260);
-            this.lblRRCT.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRRCT.Location = new System.Drawing.Point(296, 211);
             this.lblRRCT.Name = "lblRRCT";
-            this.lblRRCT.Size = new System.Drawing.Size(98, 17);
+            this.lblRRCT.Size = new System.Drawing.Size(73, 13);
             this.lblRRCT.TabIndex = 8;
             this.lblRRCT.Text = "Current Time: ";
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(488, 208);
-            this.btnReset.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnReset.Location = new System.Drawing.Point(366, 169);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(100, 28);
+            this.btnReset.Size = new System.Drawing.Size(75, 23);
             this.btnReset.TabIndex = 2;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
@@ -322,10 +352,9 @@
             // 
             // btnCalc
             // 
-            this.btnCalc.Location = new System.Drawing.Point(351, 208);
-            this.btnCalc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCalc.Location = new System.Drawing.Point(263, 169);
             this.btnCalc.Name = "btnCalc";
-            this.btnCalc.Size = new System.Drawing.Size(100, 28);
+            this.btnCalc.Size = new System.Drawing.Size(75, 23);
             this.btnCalc.TabIndex = 1;
             this.btnCalc.Text = "Calculate";
             this.btnCalc.UseVisualStyleBackColor = true;
@@ -362,366 +391,14 @@
             this.mlq.Controls.Add(this.lblMLCT);
             this.mlq.Controls.Add(this.button1);
             this.mlq.Controls.Add(this.button2);
-            this.mlq.Location = new System.Drawing.Point(4, 25);
-            this.mlq.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.mlq.Location = new System.Drawing.Point(4, 22);
             this.mlq.Name = "mlq";
-            this.mlq.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.mlq.Size = new System.Drawing.Size(1027, 668);
+            this.mlq.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.mlq.Size = new System.Drawing.Size(768, 540);
             this.mlq.TabIndex = 1;
             this.mlq.Text = "Multilevel Queue";
             this.mlq.UseVisualStyleBackColor = true;
             this.mlq.Click += new System.EventHandler(this.mlq_Click);
-            // 
-            // lblMLQGantt
-            // 
-            this.lblMLQGantt.Location = new System.Drawing.Point(1, 479);
-            this.lblMLQGantt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMLQGantt.Name = "lblMLQGantt";
-            this.lblMLQGantt.Size = new System.Drawing.Size(1008, 98);
-            this.lblMLQGantt.TabIndex = 40;
-            // 
-            // btnMin2
-            // 
-            this.btnMin2.Location = new System.Drawing.Point(375, 439);
-            this.btnMin2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnMin2.Name = "btnMin2";
-            this.btnMin2.Size = new System.Drawing.Size(61, 28);
-            this.btnMin2.TabIndex = 39;
-            this.btnMin2.Text = " - ";
-            this.btnMin2.UseVisualStyleBackColor = true;
-            this.btnMin2.Click += new System.EventHandler(this.btnMin2_Click);
-            // 
-            // lblTQ2Val
-            // 
-            this.lblTQ2Val.AutoSize = true;
-            this.lblTQ2Val.Location = new System.Drawing.Point(227, 446);
-            this.lblTQ2Val.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTQ2Val.Name = "lblTQ2Val";
-            this.lblTQ2Val.Size = new System.Drawing.Size(16, 17);
-            this.lblTQ2Val.TabIndex = 37;
-            this.lblTQ2Val.Text = "4";
-            // 
-            // btnPlus2
-            // 
-            this.btnPlus2.Location = new System.Drawing.Point(305, 439);
-            this.btnPlus2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnPlus2.Name = "btnPlus2";
-            this.btnPlus2.Size = new System.Drawing.Size(61, 28);
-            this.btnPlus2.TabIndex = 38;
-            this.btnPlus2.Text = " + ";
-            this.btnPlus2.UseVisualStyleBackColor = true;
-            this.btnPlus2.Click += new System.EventHandler(this.btnPlus2_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(73, 446);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(121, 17);
-            this.label4.TabIndex = 36;
-            this.label4.Text = "Time Quantum 2: ";
-            // 
-            // btnMin1
-            // 
-            this.btnMin1.Location = new System.Drawing.Point(375, 405);
-            this.btnMin1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnMin1.Name = "btnMin1";
-            this.btnMin1.Size = new System.Drawing.Size(61, 28);
-            this.btnMin1.TabIndex = 35;
-            this.btnMin1.Text = " - ";
-            this.btnMin1.UseVisualStyleBackColor = true;
-            this.btnMin1.Click += new System.EventHandler(this.btnMin1_Click);
-            // 
-            // lblTQ1Val
-            // 
-            this.lblTQ1Val.AutoSize = true;
-            this.lblTQ1Val.Location = new System.Drawing.Point(227, 411);
-            this.lblTQ1Val.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTQ1Val.Name = "lblTQ1Val";
-            this.lblTQ1Val.Size = new System.Drawing.Size(16, 17);
-            this.lblTQ1Val.TabIndex = 33;
-            this.lblTQ1Val.Text = "3";
-            // 
-            // btnPlus1
-            // 
-            this.btnPlus1.Location = new System.Drawing.Point(305, 405);
-            this.btnPlus1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnPlus1.Name = "btnPlus1";
-            this.btnPlus1.Size = new System.Drawing.Size(61, 28);
-            this.btnPlus1.TabIndex = 34;
-            this.btnPlus1.Text = " + ";
-            this.btnPlus1.UseVisualStyleBackColor = true;
-            this.btnPlus1.Click += new System.EventHandler(this.btnPlus1_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(73, 411);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 17);
-            this.label2.TabIndex = 32;
-            this.label2.Text = "Time Quantum 1: ";
-            // 
-            // lblMLAvgWaitVal
-            // 
-            this.lblMLAvgWaitVal.AutoSize = true;
-            this.lblMLAvgWaitVal.Location = new System.Drawing.Point(704, 400);
-            this.lblMLAvgWaitVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMLAvgWaitVal.Name = "lblMLAvgWaitVal";
-            this.lblMLAvgWaitVal.Size = new System.Drawing.Size(16, 17);
-            this.lblMLAvgWaitVal.TabIndex = 31;
-            this.lblMLAvgWaitVal.Text = "0";
-            // 
-            // lblWaitTime
-            // 
-            this.lblWaitTime.AutoSize = true;
-            this.lblWaitTime.Location = new System.Drawing.Point(589, 400);
-            this.lblWaitTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblWaitTime.Name = "lblWaitTime";
-            this.lblWaitTime.Size = new System.Drawing.Size(103, 17);
-            this.lblWaitTime.TabIndex = 30;
-            this.lblWaitTime.Text = "Avg Wait Time:";
-            // 
-            // lblMLTATVal
-            // 
-            this.lblMLTATVal.AutoSize = true;
-            this.lblMLTATVal.Location = new System.Drawing.Point(704, 369);
-            this.lblMLTATVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMLTATVal.Name = "lblMLTATVal";
-            this.lblMLTATVal.Size = new System.Drawing.Size(16, 17);
-            this.lblMLTATVal.TabIndex = 29;
-            this.lblMLTATVal.Text = "0";
-            // 
-            // lblAvgTAT
-            // 
-            this.lblAvgTAT.AutoSize = true;
-            this.lblAvgTAT.Location = new System.Drawing.Point(625, 369);
-            this.lblAvgTAT.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblAvgTAT.Name = "lblAvgTAT";
-            this.lblAvgTAT.Size = new System.Drawing.Size(67, 17);
-            this.lblAvgTAT.TabIndex = 28;
-            this.lblAvgTAT.Text = "Avg TAT:";
-            // 
-            // lblMLWP2Val
-            // 
-            this.lblMLWP2Val.AutoSize = true;
-            this.lblMLWP2Val.Location = new System.Drawing.Point(251, 369);
-            this.lblMLWP2Val.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMLWP2Val.Name = "lblMLWP2Val";
-            this.lblMLWP2Val.Size = new System.Drawing.Size(16, 17);
-            this.lblMLWP2Val.TabIndex = 27;
-            this.lblMLWP2Val.Text = "0";
-            // 
-            // lblMLWP2
-            // 
-            this.lblMLWP2.AutoSize = true;
-            this.lblMLWP2.Location = new System.Drawing.Point(108, 369);
-            this.lblMLWP2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMLWP2.Name = "lblMLWP2";
-            this.lblMLWP2.Size = new System.Drawing.Size(122, 17);
-            this.lblMLWP2.TabIndex = 26;
-            this.lblMLWP2.Text = "Queue 2 Waiting: ";
-            // 
-            // tbl2
-            // 
-            this.tbl2.AutoGenerateColumns = false;
-            this.tbl2.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tbl2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbl2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tbl2.DataSource = this.dsInputs;
-            this.tbl2.GridColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.tbl2.Location = new System.Drawing.Point(8, 0);
-            this.tbl2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tbl2.Name = "tbl2";
-            this.tbl2.RowHeadersWidth = 49;
-            this.tbl2.Size = new System.Drawing.Size(1009, 185);
-            this.tbl2.TabIndex = 25;
-            // 
-            // lblMLFPVal
-            // 
-            this.lblMLFPVal.AutoSize = true;
-            this.lblMLFPVal.Location = new System.Drawing.Point(760, 336);
-            this.lblMLFPVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMLFPVal.Name = "lblMLFPVal";
-            this.lblMLFPVal.Size = new System.Drawing.Size(16, 17);
-            this.lblMLFPVal.TabIndex = 15;
-            this.lblMLFPVal.Text = "0";
-            this.lblMLFPVal.Click += new System.EventHandler(this.lblMLFPVal_Click);
-            // 
-            // lblMLFP
-            // 
-            this.lblMLFP.AutoSize = true;
-            this.lblMLFP.Location = new System.Drawing.Point(625, 336);
-            this.lblMLFP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMLFP.Name = "lblMLFP";
-            this.lblMLFP.Size = new System.Drawing.Size(139, 17);
-            this.lblMLFP.TabIndex = 14;
-            this.lblMLFP.Text = "Finished Processes: ";
-            this.lblMLFP.Click += new System.EventHandler(this.lblMLFP_Click);
-            // 
-            // lblMLWP1Val
-            // 
-            this.lblMLWP1Val.AutoSize = true;
-            this.lblMLWP1Val.Location = new System.Drawing.Point(251, 336);
-            this.lblMLWP1Val.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMLWP1Val.Name = "lblMLWP1Val";
-            this.lblMLWP1Val.Size = new System.Drawing.Size(16, 17);
-            this.lblMLWP1Val.TabIndex = 13;
-            this.lblMLWP1Val.Text = "0";
-            // 
-            // lblMLWP1
-            // 
-            this.lblMLWP1.AutoSize = true;
-            this.lblMLWP1.Location = new System.Drawing.Point(108, 336);
-            this.lblMLWP1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMLWP1.Name = "lblMLWP1";
-            this.lblMLWP1.Size = new System.Drawing.Size(122, 17);
-            this.lblMLWP1.TabIndex = 12;
-            this.lblMLWP1.Text = "Queue 1 Waiting: ";
-            // 
-            // lblMLQLVal
-            // 
-            this.lblMLQLVal.AutoSize = true;
-            this.lblMLQLVal.Location = new System.Drawing.Point(723, 299);
-            this.lblMLQLVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMLQLVal.Name = "lblMLQLVal";
-            this.lblMLQLVal.Size = new System.Drawing.Size(16, 17);
-            this.lblMLQLVal.TabIndex = 11;
-            this.lblMLQLVal.Text = "0";
-            // 
-            // lblMLQL
-            // 
-            this.lblMLQL.AutoSize = true;
-            this.lblMLQL.Location = new System.Drawing.Point(625, 299);
-            this.lblMLQL.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMLQL.Name = "lblMLQL";
-            this.lblMLQL.Size = new System.Drawing.Size(102, 17);
-            this.lblMLQL.TabIndex = 10;
-            this.lblMLQL.Text = "Quantum Left: ";
-            // 
-            // lblMLCPVal
-            // 
-            this.lblMLCPVal.AutoSize = true;
-            this.lblMLCPVal.Location = new System.Drawing.Point(251, 299);
-            this.lblMLCPVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMLCPVal.Name = "lblMLCPVal";
-            this.lblMLCPVal.Size = new System.Drawing.Size(16, 17);
-            this.lblMLCPVal.TabIndex = 9;
-            this.lblMLCPVal.Text = "0";
-            // 
-            // lblMLCP
-            // 
-            this.lblMLCP.AutoSize = true;
-            this.lblMLCP.Location = new System.Drawing.Point(125, 299);
-            this.lblMLCP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMLCP.Name = "lblMLCP";
-            this.lblMLCP.Size = new System.Drawing.Size(118, 17);
-            this.lblMLCP.TabIndex = 8;
-            this.lblMLCP.Text = "Current Process: ";
-            // 
-            // lblMLCTVal
-            // 
-            this.lblMLCTVal.AutoSize = true;
-            this.lblMLCTVal.Location = new System.Drawing.Point(492, 258);
-            this.lblMLCTVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMLCTVal.Name = "lblMLCTVal";
-            this.lblMLCTVal.Size = new System.Drawing.Size(16, 17);
-            this.lblMLCTVal.TabIndex = 7;
-            this.lblMLCTVal.Text = "0";
-            // 
-            // lblMLCT
-            // 
-            this.lblMLCT.AutoSize = true;
-            this.lblMLCT.Location = new System.Drawing.Point(395, 258);
-            this.lblMLCT.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMLCT.Name = "lblMLCT";
-            this.lblMLCT.Size = new System.Drawing.Size(98, 17);
-            this.lblMLCT.TabIndex = 6;
-            this.lblMLCT.Text = "Current Time: ";
-            this.lblMLCT.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(481, 207);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 28);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Reset";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(344, 207);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 28);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Calculate";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // lblRRTATVal
-            // 
-            this.lblRRTATVal.AutoSize = true;
-            this.lblRRTATVal.Location = new System.Drawing.Point(728, 335);
-            this.lblRRTATVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblRRTATVal.Name = "lblRRTATVal";
-            this.lblRRTATVal.Size = new System.Drawing.Size(16, 17);
-            this.lblRRTATVal.TabIndex = 43;
-            this.lblRRTATVal.Text = "0";
-            // 
-            // lblRRTAT
-            // 
-            this.lblRRTAT.AutoSize = true;
-            this.lblRRTAT.Location = new System.Drawing.Point(649, 335);
-            this.lblRRTAT.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblRRTAT.Name = "lblRRTAT";
-            this.lblRRTAT.Size = new System.Drawing.Size(67, 17);
-            this.lblRRTAT.TabIndex = 42;
-            this.lblRRTAT.Text = "Avg TAT:";
-            // 
-            // lblRRWaitTImeVal
-            // 
-            this.lblRRWaitTImeVal.AutoSize = true;
-            this.lblRRWaitTImeVal.Location = new System.Drawing.Point(764, 362);
-            this.lblRRWaitTImeVal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblRRWaitTImeVal.Name = "lblRRWaitTImeVal";
-            this.lblRRWaitTImeVal.Size = new System.Drawing.Size(16, 17);
-            this.lblRRWaitTImeVal.TabIndex = 45;
-            this.lblRRWaitTImeVal.Text = "0";
-            // 
-            // lblRRWaitTIme
-            // 
-            this.lblRRWaitTIme.AutoSize = true;
-            this.lblRRWaitTIme.Location = new System.Drawing.Point(649, 362);
-            this.lblRRWaitTIme.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblRRWaitTIme.Name = "lblRRWaitTIme";
-            this.lblRRWaitTIme.Size = new System.Drawing.Size(103, 17);
-            this.lblRRWaitTIme.TabIndex = 44;
-            this.lblRRWaitTIme.Text = "Avg Wait Time:";
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.AutoScroll = true;
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Gainsboro;
-            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Outset;
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Cursor = System.Windows.Forms.Cursors.SizeNESW;
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 587);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1019, 77);
-            this.tableLayoutPanel1.TabIndex = 46;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // tableLayoutPanel2
             // 
@@ -733,20 +410,295 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel2.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 580);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 472);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel2.MaximumSize = new System.Drawing.Size(762, 65);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1019, 84);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(762, 65);
             this.tableLayoutPanel2.TabIndex = 41;
+            // 
+            // btnMin2
+            // 
+            this.btnMin2.Location = new System.Drawing.Point(281, 357);
+            this.btnMin2.Name = "btnMin2";
+            this.btnMin2.Size = new System.Drawing.Size(46, 23);
+            this.btnMin2.TabIndex = 39;
+            this.btnMin2.Text = " - ";
+            this.btnMin2.UseVisualStyleBackColor = true;
+            this.btnMin2.Click += new System.EventHandler(this.btnMin2_Click);
+            // 
+            // lblTQ2Val
+            // 
+            this.lblTQ2Val.AutoSize = true;
+            this.lblTQ2Val.Location = new System.Drawing.Point(170, 362);
+            this.lblTQ2Val.Name = "lblTQ2Val";
+            this.lblTQ2Val.Size = new System.Drawing.Size(13, 13);
+            this.lblTQ2Val.TabIndex = 37;
+            this.lblTQ2Val.Text = "4";
+            // 
+            // btnPlus2
+            // 
+            this.btnPlus2.Location = new System.Drawing.Point(229, 357);
+            this.btnPlus2.Name = "btnPlus2";
+            this.btnPlus2.Size = new System.Drawing.Size(46, 23);
+            this.btnPlus2.TabIndex = 38;
+            this.btnPlus2.Text = " + ";
+            this.btnPlus2.UseVisualStyleBackColor = true;
+            this.btnPlus2.Click += new System.EventHandler(this.btnPlus2_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(55, 362);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(91, 13);
+            this.label4.TabIndex = 36;
+            this.label4.Text = "Time Quantum 2: ";
+            // 
+            // btnMin1
+            // 
+            this.btnMin1.Location = new System.Drawing.Point(281, 329);
+            this.btnMin1.Name = "btnMin1";
+            this.btnMin1.Size = new System.Drawing.Size(46, 23);
+            this.btnMin1.TabIndex = 35;
+            this.btnMin1.Text = " - ";
+            this.btnMin1.UseVisualStyleBackColor = true;
+            this.btnMin1.Click += new System.EventHandler(this.btnMin1_Click);
+            // 
+            // lblTQ1Val
+            // 
+            this.lblTQ1Val.AutoSize = true;
+            this.lblTQ1Val.Location = new System.Drawing.Point(170, 334);
+            this.lblTQ1Val.Name = "lblTQ1Val";
+            this.lblTQ1Val.Size = new System.Drawing.Size(13, 13);
+            this.lblTQ1Val.TabIndex = 33;
+            this.lblTQ1Val.Text = "3";
+            // 
+            // btnPlus1
+            // 
+            this.btnPlus1.Location = new System.Drawing.Point(229, 329);
+            this.btnPlus1.Name = "btnPlus1";
+            this.btnPlus1.Size = new System.Drawing.Size(46, 23);
+            this.btnPlus1.TabIndex = 34;
+            this.btnPlus1.Text = " + ";
+            this.btnPlus1.UseVisualStyleBackColor = true;
+            this.btnPlus1.Click += new System.EventHandler(this.btnPlus1_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(55, 334);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(91, 13);
+            this.label2.TabIndex = 32;
+            this.label2.Text = "Time Quantum 1: ";
+            // 
+            // lblMLAvgWaitVal
+            // 
+            this.lblMLAvgWaitVal.AutoSize = true;
+            this.lblMLAvgWaitVal.Location = new System.Drawing.Point(528, 325);
+            this.lblMLAvgWaitVal.Name = "lblMLAvgWaitVal";
+            this.lblMLAvgWaitVal.Size = new System.Drawing.Size(13, 13);
+            this.lblMLAvgWaitVal.TabIndex = 31;
+            this.lblMLAvgWaitVal.Text = "0";
+            // 
+            // lblWaitTime
+            // 
+            this.lblWaitTime.AutoSize = true;
+            this.lblWaitTime.Location = new System.Drawing.Point(442, 325);
+            this.lblWaitTime.Name = "lblWaitTime";
+            this.lblWaitTime.Size = new System.Drawing.Size(80, 13);
+            this.lblWaitTime.TabIndex = 30;
+            this.lblWaitTime.Text = "Avg Wait Time:";
+            // 
+            // lblMLTATVal
+            // 
+            this.lblMLTATVal.AutoSize = true;
+            this.lblMLTATVal.Location = new System.Drawing.Point(528, 300);
+            this.lblMLTATVal.Name = "lblMLTATVal";
+            this.lblMLTATVal.Size = new System.Drawing.Size(13, 13);
+            this.lblMLTATVal.TabIndex = 29;
+            this.lblMLTATVal.Text = "0";
+            // 
+            // lblAvgTAT
+            // 
+            this.lblAvgTAT.AutoSize = true;
+            this.lblAvgTAT.Location = new System.Drawing.Point(469, 300);
+            this.lblAvgTAT.Name = "lblAvgTAT";
+            this.lblAvgTAT.Size = new System.Drawing.Size(53, 13);
+            this.lblAvgTAT.TabIndex = 28;
+            this.lblAvgTAT.Text = "Avg TAT:";
+            // 
+            // lblMLWP2Val
+            // 
+            this.lblMLWP2Val.AutoSize = true;
+            this.lblMLWP2Val.Location = new System.Drawing.Point(188, 300);
+            this.lblMLWP2Val.Name = "lblMLWP2Val";
+            this.lblMLWP2Val.Size = new System.Drawing.Size(13, 13);
+            this.lblMLWP2Val.TabIndex = 27;
+            this.lblMLWP2Val.Text = "0";
+            // 
+            // lblMLWP2
+            // 
+            this.lblMLWP2.AutoSize = true;
+            this.lblMLWP2.Location = new System.Drawing.Point(81, 300);
+            this.lblMLWP2.Name = "lblMLWP2";
+            this.lblMLWP2.Size = new System.Drawing.Size(93, 13);
+            this.lblMLWP2.TabIndex = 26;
+            this.lblMLWP2.Text = "Queue 2 Waiting: ";
+            // 
+            // tbl2
+            // 
+            this.tbl2.AutoGenerateColumns = false;
+            this.tbl2.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tbl2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbl2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tbl2.DataSource = this.dsInputs;
+            this.tbl2.GridColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tbl2.Location = new System.Drawing.Point(6, 0);
+            this.tbl2.Name = "tbl2";
+            this.tbl2.RowHeadersWidth = 49;
+            this.tbl2.Size = new System.Drawing.Size(757, 150);
+            this.tbl2.TabIndex = 25;
+            // 
+            // lblMLFPVal
+            // 
+            this.lblMLFPVal.AutoSize = true;
+            this.lblMLFPVal.Location = new System.Drawing.Point(570, 273);
+            this.lblMLFPVal.Name = "lblMLFPVal";
+            this.lblMLFPVal.Size = new System.Drawing.Size(13, 13);
+            this.lblMLFPVal.TabIndex = 15;
+            this.lblMLFPVal.Text = "0";
+            this.lblMLFPVal.Click += new System.EventHandler(this.lblMLFPVal_Click);
+            // 
+            // lblMLFP
+            // 
+            this.lblMLFP.AutoSize = true;
+            this.lblMLFP.Location = new System.Drawing.Point(469, 273);
+            this.lblMLFP.Name = "lblMLFP";
+            this.lblMLFP.Size = new System.Drawing.Size(104, 13);
+            this.lblMLFP.TabIndex = 14;
+            this.lblMLFP.Text = "Finished Processes: ";
+            this.lblMLFP.Click += new System.EventHandler(this.lblMLFP_Click);
+            // 
+            // lblMLWP1Val
+            // 
+            this.lblMLWP1Val.AutoSize = true;
+            this.lblMLWP1Val.Location = new System.Drawing.Point(188, 273);
+            this.lblMLWP1Val.Name = "lblMLWP1Val";
+            this.lblMLWP1Val.Size = new System.Drawing.Size(13, 13);
+            this.lblMLWP1Val.TabIndex = 13;
+            this.lblMLWP1Val.Text = "0";
+            // 
+            // lblMLWP1
+            // 
+            this.lblMLWP1.AutoSize = true;
+            this.lblMLWP1.Location = new System.Drawing.Point(81, 273);
+            this.lblMLWP1.Name = "lblMLWP1";
+            this.lblMLWP1.Size = new System.Drawing.Size(93, 13);
+            this.lblMLWP1.TabIndex = 12;
+            this.lblMLWP1.Text = "Queue 1 Waiting: ";
+            // 
+            // lblMLQLVal
+            // 
+            this.lblMLQLVal.AutoSize = true;
+            this.lblMLQLVal.Location = new System.Drawing.Point(542, 243);
+            this.lblMLQLVal.Name = "lblMLQLVal";
+            this.lblMLQLVal.Size = new System.Drawing.Size(13, 13);
+            this.lblMLQLVal.TabIndex = 11;
+            this.lblMLQLVal.Text = "0";
+            // 
+            // lblMLQL
+            // 
+            this.lblMLQL.AutoSize = true;
+            this.lblMLQL.Location = new System.Drawing.Point(469, 243);
+            this.lblMLQL.Name = "lblMLQL";
+            this.lblMLQL.Size = new System.Drawing.Size(77, 13);
+            this.lblMLQL.TabIndex = 10;
+            this.lblMLQL.Text = "Quantum Left: ";
+            // 
+            // lblMLCPVal
+            // 
+            this.lblMLCPVal.AutoSize = true;
+            this.lblMLCPVal.Location = new System.Drawing.Point(188, 243);
+            this.lblMLCPVal.Name = "lblMLCPVal";
+            this.lblMLCPVal.Size = new System.Drawing.Size(13, 13);
+            this.lblMLCPVal.TabIndex = 9;
+            this.lblMLCPVal.Text = "0";
+            // 
+            // lblMLCP
+            // 
+            this.lblMLCP.AutoSize = true;
+            this.lblMLCP.Location = new System.Drawing.Point(94, 243);
+            this.lblMLCP.Name = "lblMLCP";
+            this.lblMLCP.Size = new System.Drawing.Size(88, 13);
+            this.lblMLCP.TabIndex = 8;
+            this.lblMLCP.Text = "Current Process: ";
+            // 
+            // lblMLCTVal
+            // 
+            this.lblMLCTVal.AutoSize = true;
+            this.lblMLCTVal.Location = new System.Drawing.Point(369, 210);
+            this.lblMLCTVal.Name = "lblMLCTVal";
+            this.lblMLCTVal.Size = new System.Drawing.Size(13, 13);
+            this.lblMLCTVal.TabIndex = 7;
+            this.lblMLCTVal.Text = "0";
+            // 
+            // lblMLCT
+            // 
+            this.lblMLCT.AutoSize = true;
+            this.lblMLCT.Location = new System.Drawing.Point(296, 210);
+            this.lblMLCT.Name = "lblMLCT";
+            this.lblMLCT.Size = new System.Drawing.Size(73, 13);
+            this.lblMLCT.TabIndex = 6;
+            this.lblMLCT.Text = "Current Time: ";
+            this.lblMLCT.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(361, 168);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Reset";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(258, 168);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 4;
+            this.button2.Text = "Calculate";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // lblMLQGantt
+            // 
+            this.lblMLQGantt.Location = new System.Drawing.Point(1, 389);
+            this.lblMLQGantt.Name = "lblMLQGantt";
+            this.lblMLQGantt.Size = new System.Drawing.Size(756, 47);
+            this.lblMLQGantt.TabIndex = 40;
+            this.lblMLQGantt.Visible = false;
+            // 
+            // lblRRGantt
+            // 
+            this.lblRRGantt.Location = new System.Drawing.Point(2, 393);
+            this.lblRRGantt.Name = "lblRRGantt";
+            this.lblRRGantt.Size = new System.Drawing.Size(756, 55);
+            this.lblRRGantt.TabIndex = 41;
+            this.lblRRGantt.Visible = false;
+            this.lblRRGantt.Click += new System.EventHandler(this.lblRRGantt_Click);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 726);
+            this.ClientSize = new System.Drawing.Size(800, 590);
             this.Controls.Add(this.tabMain);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.tabMain.ResumeLayout(false);
@@ -811,13 +763,13 @@
         private System.Windows.Forms.Label lblTQ1Val;
         private System.Windows.Forms.Button btnPlus1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label lblMLQGantt;
-        private System.Windows.Forms.Label lblRRGantt;
         private System.Windows.Forms.Label lblRRWaitTImeVal;
         private System.Windows.Forms.Label lblRRWaitTIme;
         private System.Windows.Forms.Label lblRRTATVal;
         private System.Windows.Forms.Label lblRRTAT;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Label lblRRGantt;
+        private System.Windows.Forms.Label lblMLQGantt;
     }
 }
