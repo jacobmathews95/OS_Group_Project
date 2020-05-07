@@ -280,10 +280,12 @@ namespace testapp1
             lblTQ2Val.Text = i.ToString();
         }
 
+
+
+
         private void button1_Click(object sender, EventArgs e)
         {
-            //reset.
-           
+            //mlq reset
             lblMLTATVal.Text = "0";
             lblMLCTVal.Text = "0";
             lblMLCPVal.Text = "0";
@@ -292,6 +294,33 @@ namespace testapp1
             lblMLFPVal.Text = "0";
             lblMLAvgWaitVal.Text = "0";
             lblMLQGantt.Text = "";
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            //rr reset
+            lblRRCTVal.Text = "0";
+            lblRRCPVal.Text = "0";
+            lblRRWPVal.Text = "0";
+            lblRRQLVal.Text = "0";
+            lblRRFPVal.Text = "0";
+            lblRRGantt.Text = "";
+}
+
+        private void btnPlus_Click(object sender, EventArgs e)
+        {
+            //rr plus
+            int i = Int32.Parse(lblTQVal.Text);
+            i++;
+            lblTQVal.Text = i.ToString();
+        }
+
+        private void btnMinus_Click(object sender, EventArgs e)
+        {
+            //rr minus
+            int i = Int32.Parse(lblTQVal.Text);
+            i--;
+            lblTQVal.Text = i.ToString();
         }
     }
 }

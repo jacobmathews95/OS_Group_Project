@@ -77,6 +77,7 @@
             this.btnPlus2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.lblMLQGantt = new System.Windows.Forms.Label();
+            this.lblRRGantt = new System.Windows.Forms.Label();
             this.tabMain.SuspendLayout();
             this.rr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbl1)).BeginInit();
@@ -97,6 +98,7 @@
             // 
             // rr
             // 
+            this.rr.Controls.Add(this.lblRRGantt);
             this.rr.Controls.Add(this.btnMinus);
             this.rr.Controls.Add(this.lblTQVal);
             this.rr.Controls.Add(this.btnPlus);
@@ -117,7 +119,7 @@
             this.rr.Location = new System.Drawing.Point(4, 22);
             this.rr.Name = "rr";
             this.rr.Padding = new System.Windows.Forms.Padding(3);
-            this.rr.Size = new System.Drawing.Size(768, 515);
+            this.rr.Size = new System.Drawing.Size(768, 540);
             this.rr.TabIndex = 0;
             this.rr.Text = "Round Robin";
             this.rr.UseVisualStyleBackColor = true;
@@ -131,15 +133,16 @@
             this.btnMinus.TabIndex = 28;
             this.btnMinus.Text = " - ";
             this.btnMinus.UseVisualStyleBackColor = true;
+            this.btnMinus.Click += new System.EventHandler(this.btnMinus_Click);
             // 
             // lblTQVal
             // 
             this.lblTQVal.AutoSize = true;
             this.lblTQVal.Location = new System.Drawing.Point(134, 333);
             this.lblTQVal.Name = "lblTQVal";
-            this.lblTQVal.Size = new System.Drawing.Size(40, 13);
+            this.lblTQVal.Size = new System.Drawing.Size(13, 13);
             this.lblTQVal.TabIndex = 26;
-            this.lblTQVal.Text = "[Value]";
+            this.lblTQVal.Text = "3";
             // 
             // btnPlus
             // 
@@ -149,15 +152,16 @@
             this.btnPlus.TabIndex = 27;
             this.btnPlus.Text = " + ";
             this.btnPlus.UseVisualStyleBackColor = true;
+            this.btnPlus.Click += new System.EventHandler(this.btnPlus_Click);
             // 
             // lblTQ
             // 
             this.lblTQ.AutoSize = true;
-            this.lblTQ.Location = new System.Drawing.Point(19, 333);
+            this.lblTQ.Location = new System.Drawing.Point(46, 333);
             this.lblTQ.Name = "lblTQ";
-            this.lblTQ.Size = new System.Drawing.Size(119, 13);
+            this.lblTQ.Size = new System.Drawing.Size(82, 13);
             this.lblTQ.TabIndex = 25;
-            this.lblTQ.Text = "Current Time Quantum: ";
+            this.lblTQ.Text = "Time Quantum: ";
             // 
             // tbl1
             // 
@@ -181,9 +185,9 @@
             this.lblRRFPVal.AutoSize = true;
             this.lblRRFPVal.Location = new System.Drawing.Point(597, 285);
             this.lblRRFPVal.Name = "lblRRFPVal";
-            this.lblRRFPVal.Size = new System.Drawing.Size(39, 13);
+            this.lblRRFPVal.Size = new System.Drawing.Size(13, 13);
             this.lblRRFPVal.TabIndex = 23;
-            this.lblRRFPVal.Text = "[value]";
+            this.lblRRFPVal.Text = "0";
             // 
             // lblRRFP
             // 
@@ -199,9 +203,9 @@
             this.lblRRWPVal.AutoSize = true;
             this.lblRRWPVal.Location = new System.Drawing.Point(219, 285);
             this.lblRRWPVal.Name = "lblRRWPVal";
-            this.lblRRWPVal.Size = new System.Drawing.Size(39, 13);
+            this.lblRRWPVal.Size = new System.Drawing.Size(13, 13);
             this.lblRRWPVal.TabIndex = 21;
-            this.lblRRWPVal.Text = "[value]";
+            this.lblRRWPVal.Text = "0";
             // 
             // lblRRWP
             // 
@@ -217,9 +221,9 @@
             this.lblRRQLVal.AutoSize = true;
             this.lblRRQLVal.Location = new System.Drawing.Point(560, 239);
             this.lblRRQLVal.Name = "lblRRQLVal";
-            this.lblRRQLVal.Size = new System.Drawing.Size(39, 13);
+            this.lblRRQLVal.Size = new System.Drawing.Size(13, 13);
             this.lblRRQLVal.TabIndex = 19;
-            this.lblRRQLVal.Text = "[value]";
+            this.lblRRQLVal.Text = "0";
             // 
             // lblRRQL
             // 
@@ -235,9 +239,9 @@
             this.lblRRCPVal.AutoSize = true;
             this.lblRRCPVal.Location = new System.Drawing.Point(206, 239);
             this.lblRRCPVal.Name = "lblRRCPVal";
-            this.lblRRCPVal.Size = new System.Drawing.Size(39, 13);
+            this.lblRRCPVal.Size = new System.Drawing.Size(13, 13);
             this.lblRRCPVal.TabIndex = 17;
-            this.lblRRCPVal.Text = "[value]";
+            this.lblRRCPVal.Text = "0";
             // 
             // lblRRCP
             // 
@@ -253,9 +257,9 @@
             this.lblRRCTVal.AutoSize = true;
             this.lblRRCTVal.Location = new System.Drawing.Point(369, 211);
             this.lblRRCTVal.Name = "lblRRCTVal";
-            this.lblRRCTVal.Size = new System.Drawing.Size(39, 13);
+            this.lblRRCTVal.Size = new System.Drawing.Size(13, 13);
             this.lblRRCTVal.TabIndex = 9;
-            this.lblRRCTVal.Text = "[value]";
+            this.lblRRCTVal.Text = "0";
             // 
             // lblRRCT
             // 
@@ -274,6 +278,7 @@
             this.btnReset.TabIndex = 2;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // btnCalc
             // 
@@ -587,6 +592,13 @@
             this.lblMLQGantt.Size = new System.Drawing.Size(756, 80);
             this.lblMLQGantt.TabIndex = 40;
             // 
+            // lblRRGantt
+            // 
+            this.lblRRGantt.Location = new System.Drawing.Point(2, 393);
+            this.lblRRGantt.Name = "lblRRGantt";
+            this.lblRRGantt.Size = new System.Drawing.Size(756, 80);
+            this.lblRRGantt.TabIndex = 41;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -658,5 +670,6 @@
         private System.Windows.Forms.Button btnPlus1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblMLQGantt;
+        private System.Windows.Forms.Label lblRRGantt;
     }
 }
