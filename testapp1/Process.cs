@@ -358,7 +358,12 @@ namespace testapp1
                     mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(),Q.QueueString, Q2.QueueString, FinishProcess);
                     Q.qProcess[0].setRemainingTime(tQ);
                     Q.qProcess.Add(Q.qProcess[0]);
-                    seq += "->" + Q.qProcess[0].getName();
+
+                    if (seq == "")
+                        seq += String.Format("|  {0}  |", Q.qProcess[0].getName());
+                    else
+                        seq += String.Format("  {0}  |", Q.qProcess[0].getName());
+
                     Q.qProcess.RemoveAt(0);
                     //return flag;
 
@@ -375,7 +380,12 @@ namespace testapp1
 
                     //Waiting Time: 
                     Q.qProcess[0].setWaitingTime(time - Q.qProcess[0].getBurstTime() - Q.qProcess[0].getArrivalTime());
-                    seq += "->" + Q.qProcess[0].getName();
+
+                    if (seq == "")
+                        seq += String.Format("|  {0}  |", Q.qProcess[0].getName());
+                    else
+                        seq += String.Format("  {0}  |", Q.qProcess[0].getName());
+
                     mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q.QueueString, Q2.QueueString, FinishProcess);
                     Q.qProcess.RemoveAt(0);
                 }
@@ -451,7 +461,13 @@ namespace testapp1
 
                                 }
                                 mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q.QueueString, Q1.QueueString, FinishProcess);
-                                seq += "->" + Q.qProcess[0].getName();
+
+                                if (seq == "")
+                                    seq += String.Format("|  {0}  |", Q.qProcess[0].getName());
+                                else
+                                    seq += String.Format("  {0}  |", Q.qProcess[0].getName());
+
+
                                 Q.qProcess.RemoveAt(0);
                                 return flag;
                             }
@@ -475,7 +491,13 @@ namespace testapp1
                     mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q1.QueueString, Q.QueueString, FinishProcess);
                     Q.qProcess[0].setRemainingTime(tQ);
                     Q.qProcess.Add(Q.qProcess[0]);
-                    seq += "->" + Q.qProcess[0].getName();
+
+                    if (seq == "")
+                        seq += String.Format("|  {0}  |", Q.qProcess[0].getName());
+                    else
+                        seq += String.Format("  {0}  |", Q.qProcess[0].getName());
+
+
                     Q.qProcess.RemoveAt(0);
                     //return flag;
 
@@ -492,7 +514,14 @@ namespace testapp1
 
                     //Waiting Time: 
                     Q.qProcess[0].setWaitingTime(time - Q.qProcess[0].getBurstTime() - Q.qProcess[0].getArrivalTime());
-                    seq += "->" + Q.qProcess[0].getName();
+
+
+                    if (seq == "")
+                        seq += String.Format("|  {0}  |", Q.qProcess[0].getName());
+                    else
+                        seq += String.Format("  {0}  |", Q.qProcess[0].getName());
+
+
                     mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(), Q1.QueueString, Q.QueueString, FinishProcess);
                     Q.qProcess.RemoveAt(0);
                 }
