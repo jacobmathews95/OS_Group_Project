@@ -11,6 +11,9 @@ namespace testapp1
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+
+        public static bool pauseMLQ = true;
+
         [STAThread]
         static void Main()
         {

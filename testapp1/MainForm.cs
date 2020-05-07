@@ -236,6 +236,16 @@ namespace testapp1
 
         }
 
+        public void UpdateRRUI(int currentTime,
+            string currentProcess,
+            string q1ProcessesWaiting,
+            string finishedProcesses)
+        {
+            lblRRCTVal.Text = currentTime.ToString();
+            lblRRCPVal.Text = currentProcess;
+            lblRRQLVal.Text = q1ProcessesWaiting;
+            lblRRFPVal.Text = finishedProcesses;
+        }
 
         public void UpdateMLQUI(int currentTime, 
             string currentProcess, 
