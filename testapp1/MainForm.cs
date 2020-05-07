@@ -33,10 +33,6 @@ namespace testapp1
             tbl2.DataSource = dsInputs; // dataset
             tbl2.DataMember = "MLQ"; // table name you need to show
 
-            priorityAlgo = new PriorityScheduling();
-            for (int i = 0; i < tRR.Rows.Count; i++)
-                priorityAlgo.Processes.Add(new Process(tRR.Rows[i].Field<string>(0), tRR.Rows[i].Field<int>(2), tRR.Rows[i].Field<int>(1), tRR.Rows[i].Field<int>(3)));
-
 
         }
 
@@ -183,6 +179,23 @@ namespace testapp1
         
         private void buttonRR_Click(object sender, EventArgs e)
         {
+
+            btnReset_Click(sender, e); //Reset
+
+            if(priorityAlgo == null)
+            {
+                priorityAlgo = new PriorityScheduling();
+            }
+            else
+            {
+                priorityAlgo = null;
+                priorityAlgo = new PriorityScheduling();
+            }
+
+            priorityAlgo = new PriorityScheduling();
+            for (int i = 0; i < tRR.Rows.Count; i++)
+                priorityAlgo.Processes.Add(new Process(tRR.Rows[i].Field<string>(0), tRR.Rows[i].Field<int>(2), tRR.Rows[i].Field<int>(1), tRR.Rows[i].Field<int>(3)));
+
 
             List<string> seq = new List<string>();
             
@@ -354,6 +367,9 @@ namespace testapp1
             lblMLFPVal.Text = "0";
             lblMLAvgWaitVal.Text = "0";
             lblMLQGantt.Text = "";
+            updateMLQTime = new List<int>();
+            tableLayoutPanel2.Controls.Clear();
+            tableLayoutPanel2.RowCount = 1;
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -365,7 +381,10 @@ namespace testapp1
             lblRRQLVal.Text = "0";
             lblRRFPVal.Text = "0";
             lblRRGantt.Text = "";
-}
+            updateRRTime = new List<int>();
+            tableLayoutPanel1.Controls.Clear();
+            tableLayoutPanel1.RowCount = 1;
+        }
 
         private void btnPlus_Click(object sender, EventArgs e)
         {
