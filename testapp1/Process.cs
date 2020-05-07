@@ -355,7 +355,7 @@ namespace testapp1
                 if (Q.qProcess[0].getRemainingTime() > tQ)
                 {
                     time += tQ;
-                    mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(),Q.QueueString, Q2.QueueString, FinishProcess );
+                    mainForm.UpdateMLQUI(time, Q.qProcess[0].getName(),Q.QueueString, Q2.QueueString, FinishProcess);
                     Q.qProcess[0].setRemainingTime(tQ);
                     Q.qProcess.Add(Q.qProcess[0]);
                     seq += "->" + Q.qProcess[0].getName();

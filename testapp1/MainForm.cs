@@ -229,11 +229,19 @@ namespace testapp1
 
             Debug.WriteLine(seq);
 
+            lblMLTATVal.Text = mlqAlgo.AverageTAT(mlqAlgo.Processes).ToString();
+            lblMLAvgWaitVal.Text = mlqAlgo.AverageWaitingTime(mlqAlgo.Processes).ToString();
+
+
 
         }
 
 
-        public void UpdateMLQUI(int currentTime, string currentProcess, string q1ProcessesWaiting, string q2ProcessesWaiting, string finishedProcesses)
+        public void UpdateMLQUI(int currentTime, 
+            string currentProcess, 
+            string q1ProcessesWaiting, 
+            string q2ProcessesWaiting, 
+            string finishedProcesses)
         {
             lblMLCTVal.Text = currentTime.ToString();
             lblMLCPVal.Text = currentProcess;
