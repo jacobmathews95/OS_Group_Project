@@ -233,6 +233,16 @@ namespace testapp1
             lblMLAvgWaitVal.Text = mlqAlgo.AverageWaitingTime(mlqAlgo.Processes).ToString();
         }
 
+        public void UpdateRRUI(int currentTime,
+            string currentProcess,
+            string q1ProcessesWaiting,
+            string finishedProcesses)
+        {
+            lblRRCTVal.Text = currentTime.ToString();
+            lblRRCPVal.Text = currentProcess;
+            lblRRQLVal.Text = q1ProcessesWaiting;
+            lblRRFPVal.Text = finishedProcesses;
+        }
 
         public void UpdateMLQUI(int currentTime, 
             string currentProcess, 
